@@ -1,0 +1,10 @@
+{% extends "blog_base.html" %}
+{% block content %}
+<form>
+{% csrf_token %}
+{{form}}
+<br/>
+<input type="submit" value="Login" />
+
+</form>
+{% endblock %}
