@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!-- header -->
+<div class="header">
+    <div class="overlay w100 h100 d-flex justify-content-center align-items-center">
+        <div class="content-box txt-white text-center mxw-700">
+            <h1 class="mb-5">Lorem ipsum dolor sit amet consectetur adipisicing elit.</h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor porro enim officiis! Ipsum, ut? Cupiditate ab veniam quaerat ex in quam facere consequatur quisquam possimus!</p>
+        </div>
+    </div>
+</div>
+<!-- end of header -->
+<!-- about -->
+<section class="py-5 text-success" id="about">
+    <div class="container">
+        <!-- fire text animation -->
+        <div class="fire-text">
+            <h4 class="ttu">about us</h4>
+        </div>
+        <svg>
+            <filter id="fire">
+                <feTurbulence id="turbulence" baseFrequency="0.1 0.1" numOctaves="2" seed="3">
+                    <animate attributeName="baseFrequency" dur="10s" values="0.1 0.1;0.12 0.2;" repeatCount="indefinite"></animate>
+                </feTurbulence>
+                <feDisplacementMap in="SourceGraphic" scale="10"></feDisplacementMap>
+            </filter>
+        </svg>
+        <!-- end of fire text animation -->
+        <div class="row">
+            <div class="col fz-sm">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio nihil impedit enim ipsam tempore natus at sapiente eos tenetur, repellendus soluta eligendi saepe incidunt est vel ex voluptate recusandae vitae.
+            </div> 
+        </div>
+    </div>
+</section>
+<!-- end of about -->
+<!-- contact -->
+<section class="bg-success py-5 text-white" id="contact">
+    <div class="container">
+        <!-- fire text animation -->
+        <div class="fire-text">
+            <h4 class="ttu white">contact us</h4>
+        </div>
+        <svg>
+            <filter id="fire">
+                <feTurbulence id="turbulence" baseFrequency="0.1 0.1" numOctaves="2" seed="3">
+                    <animate attributeName="baseFrequency" dur="10s" values="0.1 0.1;0.12 0.2;" repeatCount="indefinite"></animate>
+                </feTurbulence>
+                <feDisplacementMap in="SourceGraphic" scale="10"></feDisplacementMap>
+            </filter>
+        </svg>
+        <!-- end of fire text animation -->
+        <div class="row">
+            <div class="col-md-6">
+                <h2 class="display-4 ttc" style="font-size: 2.5rem;">send us a message</h2>
+                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cum animi, dicta temporibus veritatis placeat eveniet labore dolore minima voluptatem assumenda nam! Modi non exercitationem veritatis quidem aut, deserunt dolore mollitia?</p>
+            </div>
+            <div class="col-md-6">
+                <form class="p-2">
+                    <div class="row p-2">
+                      <div class="col-sm-6 mb-2 mb-sm-0">
+                        <input type="text" class="form-control" placeholder="Your name" required>
+                      </div>
+                      <div class="col-sm-6">
+                        <input type="email" class="form-control" placeholder="Your email" required>
+                      </div>
+                    </div>
+                    <div class="row p-2">
+                        <div class="col">
+                            <textarea class="w-100 h-20rm form-control" style="height: 10rem;" required></textarea>
+                        </div>
+                    </div>
+                    <div class="col p-2">
+                        <input type="submit" class="btn btn-light text-success font-weight-bold"></input>
+                    </div>
+                  </form>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end of contact -->
+<!-- section -->
+<section class="py-5">
+    <div class="container">
+        <!-- fire text animation -->
+        <div class="fire-text">
+            <h2 class="ttu">isready</h2>
+        </div>
+        <svg>
+            <filter id="fire">
+                <feTurbulence id="turbulence" baseFrequency="0.1 0.1" numOctaves="2" seed="3">
+                    <animate attributeName="baseFrequency" dur="10s" values="0.1 0.1;0.12 0.2;" repeatCount="indefinite"></animate>
+                </feTurbulence>
+                <feDisplacementMap in="SourceGraphic" scale="10"></feDisplacementMap>
+            </filter>
+        </svg>
+        <!-- end of fire text animation -->
+    </div>
+</section>
+<!-- end of section -->
+{% endblock %}
