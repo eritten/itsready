@@ -1,9 +1,45 @@
 {% extends "base.html" %}
 {% block content %}
-<form>
-{% csrf_token %}
-{{form}}
-<input type="submit" value="Signup" />
+<!-- styles -->
+<style>
+    .signup-form {
+        max-width: 100%;
+    }
+    .signup-form input {
+        color: #27ae60!important;
+    }
+    .signup-form input:not(:last-child) {
+        margin-bottom: .5rem;
+        padding: 0.5rem;
+    }
+    .signup-form label {
+        display: none;
+    }
+    .signup-form br {
+        display: none;
+    }
+    .helptext {
+        width: 100%;
+        padding: 0.5rem;
+        background: white;
+        color: #219150!important;
+        margin-bottom: 0.5rem;
+        font-weight: bold;
+    }
+    @media (max-width: 480px) {
+        .signup-form,
+        .signup-form input {
+            font-size: 0.8rem;
+        }
+    }
+</style>
+<!-- end of styles -->
+<div class="container mh80 justify-content-center align-items-center d-flex">
+    <form class="signup-form p-4 d-flex flex-column bg-success rounded shadow">
+        {% csrf_token %}
+        {{form}}
+        <input type="submit" class="btn btn-light text-success font-weight-bold fz-sm" value="Signup" />
+    </form>
+</div>
 
-</form>
 {% endblock %}

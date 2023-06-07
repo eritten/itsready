@@ -85,6 +85,15 @@ body {
 .ttc {
     text-transform: capitalize!important;
 }
+.mh80 {
+    min-height: 80vh!important;
+}
+.mh90 {
+    min-height: 90vh!important;
+}
+.mh100 {
+    min-height: 100vh!important;
+}
 /* fire text animation */
 .fire-text {
     position: relative;

@@ -15,15 +15,15 @@
 <body> 
  
     <!-- nav -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-success fixed-top">
-        <a class="navbar-brand" href="#">ISREADY</a>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success fixed-top shadow">
+        <a class="navbar-brand" href="#">ITSREADY</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
               <a class="nav-link txt-white" href="#about">About</a>
@@ -36,8 +36,8 @@
                 Login
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="{% url 'signup' %}">Login</a>
-                <a class="dropdown-item" href="#">Register</a>
+                <a class="dropdown-item" href="{% url 'login' %}">Login</a>
+                <a class="dropdown-item" href="{% url 'signup' %}">Register</a>
               </div>
             </li>
           </ul>
@@ -52,7 +52,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col text-center">
-                <h4 class="ttu">isready</h4>
+                <h4 class="ttu">itsready</h4>
                 <ul class="footer-links">
                     <li> <a href="#n" class="text-white">privacy</a></li>
                     <li> <a href="#n" class="text-white">terms and conditions</a></li>
@@ -66,8 +66,6 @@
 <script src="{% static 'js/aos.js' %}"></script>
 <script src="{% static 'js/jquery.js' %}"></script>
 <script src="{% static 'js/bootstrap.js' %}"></script>
-<script src="{% static 'js/main.js' %}"></script>
-
 <!-- aos init -->
 <script>
      AOS.init({
@@ -79,6 +77,14 @@
         mirror: false,
         anchorPlacement: 'top-bottom'
     })
+    $(".login-form input:not(:last-child)").addClass("form-control-lg")
+    $(".signup-form input:not(:last-child)").addClass("form-control-lg")
+    $(".login-form #id_username").attr("placeholder", "username")
+    $(".signup-form #id_username").attr("placeholder", "username")
+    $(".login-form #id_password").attr("placeholder", "password")
+    $(".signup-form #id_password").attr("placeholder", "password")
+    $(".signup-form #id_password").attr("type", "password")
+    $(".signup-form #id_email").attr("placeholder", "email")
 </script>
 </body>
 </html>
