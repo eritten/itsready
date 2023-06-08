@@ -25,12 +25,16 @@
             <li class="nav-item active">
               <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
             </li>
+            {% if request.path == '/' %}
             <li class="nav-item">
               <a class="nav-link txt-white" href="#about">About</a>
             </li>
             <li class="nav-item">
               <a class="nav-link txt-white" href="#contact">Contact us</a>
             </li>
+            {% else %}
+            {# #}
+            {% endif %}
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle txt-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Login
@@ -85,6 +89,7 @@
     $(".signup-form #id_password").attr("placeholder", "password")
     $(".signup-form #id_password").attr("type", "password")
     $(".signup-form #id_email").attr("placeholder", "email")
+    $(".signup-alert").fadeOut(5000)
 </script>
 </body>
 </html>

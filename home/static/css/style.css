@@ -127,3 +127,21 @@ svg {
     }
 }
 /* end of fire text animation */
+/* login error */
+.errorlist {
+    background: white!important;
+    padding: 0.3rem;
+    color: rgb(172, 9, 9);
+    font-weight: bold;
+    border-radius: 6px;
+}
+/* end of login error */
+/* signup alert */
+.signup-alert {
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100000000;
+}
+/* end of signup alert */
