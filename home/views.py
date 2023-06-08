@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from .forms import UserForm
 from django.contrib import messages
+from django.contrib.auth.hashers import make_password
 
 # Create your views here.
 
@@ -19,6 +20,8 @@ def signup(request):
     if request.method == "POST":
         form = UserForm(request.POST)
         if form.is_valid():
+            form = form.save(commit=False)
+            form.password = make_password(form.password)
             form.save()
             messages.success(request, "Account created")
             return redirect("home")
