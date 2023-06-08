@@ -21,7 +21,7 @@
 </style>
 <!-- end of styles -->
 <div class="container mh80 justify-content-center align-items-center d-flex">
-    <form class="login-form p-4 d-flex flex-column bg-success rounded shadow">
+    <form class="login-form p-4 d-flex flex-column bg-success rounded shadow" action="{% url 'login' %}" method="post">
     {% csrf_token %}
     {{form}}
         <input type="submit" class="btn btn-light text-success font-weight-bold fz-sm" value="Login" />

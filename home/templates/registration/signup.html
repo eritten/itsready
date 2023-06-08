@@ -35,7 +35,7 @@
 </style>
 <!-- end of styles -->
 <div class="container mh80 justify-content-center align-items-center d-flex">
-    <form class="signup-form p-4 d-flex flex-column bg-success rounded shadow">
+    <form class="signup-form p-4 d-flex flex-column bg-success rounded shadow" action="{% url 'signup' %}" method="POST">
         {% csrf_token %}
         {{form}}
         <input type="submit" class="btn btn-light text-success font-weight-bold fz-sm" value="Signup" />

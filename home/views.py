@@ -19,6 +19,7 @@ def signup(request):
     if request.method == "POST":
         form = UserForm(request.POST)
         if form.is_valid():
+            form.save()
             messages.success(request, "Account created")
             return redirect("home")
         return render(request, "registration/signup.html", {"form": form})
