@@ -9,11 +9,10 @@ from django.contrib.auth.hashers import make_password
 # Create your views here.
 
 def home(request):
+    if request.user.is_authenticated:
+        return redirect("dashboard")
     return render(request, "home/home.html")
 
-@login_required
-def dashboard(request):
-    return render(request, "dashboard/dashboard.html")
 
 def signup(request):
     form = UserForm()
@@ -27,3 +26,6 @@ def signup(request):
             return redirect("home")
         return render(request, "registration/signup.html", {"form": form})
     return render(request, "registration/signup.html", {"form": form})
+@login_required
+def dashboard(request):
+    return render(request,"dashboard/dashboard.html")
