@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/aos.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="{% static 'js/all.js' %}"></script>
+</head>
+<body> 
+    <!-- nav -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success fixed-top shadow">
+        <a class="navbar-brand" href="#">ITSREADY</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+            </li>
+            {% if request.path == '/' %}
+            <li class="nav-item">
+              <a class="nav-link txt-white" href="#about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link txt-white" href="#contact">Contact us</a>
+            </li>
+            {% else %}
+            {# #}
+            {% endif %}
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle txt-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Login
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    <!-- end of nav -->
+{% block content %}
+
+{% endblock %}
+<!-- footer -->
+<footer class="py-2 bg-success text-white">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col text-center">
+                <h4 class="ttu">itsready</h4>
+                <ul class="footer-links">
+                    <li> <a href="#n" class="text-white">privacy</a></li>
+                    <li> <a href="#n" class="text-white">terms and conditions</a></li>
+                </ul> 
+                <p class="text-white">&copy; copyright 2023 | all rights reserved </p> 
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- end of footer -->
+<script src="{% static 'js/aos.js' %}"></script>
+<script src="{% static 'js/jquery.js' %}"></script>
+<script src="{% static 'js/bootstrap.js' %}"></script>
+<!-- aos init -->
+<script>
+     AOS.init({
+        offset: 50,
+        delay: 100,
+        duration: 800,
+        easing: 'ease',
+        once: false,
+        mirror: false,
+        anchorPlacement: 'top-bottom'
+    })
+</script>
+</body>
+</html>
