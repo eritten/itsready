@@ -1,130 +1,314 @@
 {% extends "dashboard/dashboard_base.html" %}
 {% load static %}
 {% block content %}
-<!-- sidebar -->
-<aside class="dashboard-side-nav fixed-top bg-success p-3 shadow">
-    <div class="dashboard-side-nav-container">
-        <a href="{% url 'home' %}" class="font-weight-bold fz-lg2 mb-4 text-white d-block">ITSREADY</a>
-        <p class="text-white">Dashboard</p>
-        <div class="dashboard-side-nav-menu">
-            <ul>
-                <li>
-                    <a href="#n" class="active" data-target="profile" aria-label="profile tab link">
-                        <span class="icon"><i class="fas fa-user"></i></span>
-                        <span class="title">Profile</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#n" data-target="messages" aria-label="messages tab link">
-                        <span class="icon"><i class="fas fa-sms"></i></span>
-                        <span class="title">Messages</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#n" data-target="customers" aria-label="customers tab link">
-                        <span class="icon"><i class="fas fa-users"></i></span>
-                        <span class="title">Customers</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#N" data-target="settings" aria-label="Settings tab link">
-                        <span class="icon"><i class="fas fa-cog"></i></span>
-                        <span class="title">Settings</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</aside>
-<!-- end of sidebar -->
-<!-- main container -->
-<main class="main-dashboard-container shadow">
-    <!-- top nav -->
-     <nav class="navbar navbar-expand-sm navbar-dark bg-success shadow">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
-            </li>
-            {% if request.path == '/' %}
-            <li class="nav-item">
-              <a class="nav-link txt-white" href="#about">About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link txt-white" href="#contact">Contact us</a>
-            </li>
-            {% else %}
-            {# #}
-            {% endif %}
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle txt-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {{ request.user.username }}
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a href="#n" class="dropdown-item text-success" data-toggle="modal" data-target="#logout">
-                    <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
-                    <span class="title">Logout</span>
-                </a>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </nav>
-    <!-- end of top nav -->
-      <!-- main content container -->
-      <div class="main-content-container">
-        <!-- start of tab content box -->
-        <div class="tab-content-box active" data-target="profile">
-            <p>profile</p>
-        </div>
-        <!-- end of tab content box -->
-        <!-- start of tab content box -->
-        <div class="tab-content-box" data-target="messages">
-            <p>messages</p>
-        </div>
-        <!-- end of tab content box -->
-        <!-- start of tab content box -->
-        <div class="tab-content-box" data-target="customers">
-            <p>customers</p>
-        </div>
-        <!-- end of tab content box -->
-        <!-- start of tab content box -->
-        <div class="tab-content-box" data-target="settings">
-            <p>settings</p>
-        </div>
-        <!-- end of tab content box -->
-      </div>
-      <!-- end of main content container -->
-      <!-- dashboard footer -->
-      <footer class="dashboard-footer bg-success">
-            <div class="dashboard-footer-container w-100">
-                <p class="text-center text-white" style="font-size: 1.2rem;">&copy;Copyrights ITSREADY | <span id="date"></span> all rights reserved.</p>
-            </div>
-      </footer>
-      <!-- end of dashboard footer -->
+
 </main>
 <!-- end of main container -->
+<main class="main-container">
+
+  <!-- sidebar -->
+  <aside class="sidebar" data-sidebar>
+
+    <div class="sidebar-info">
+
+      <div class="info-content">
+        <h2 class="name">ITSREADY</h2>
+        <p class="title">dashboard</p>
+      </div>
+
+      <button class="info_more-btn" data-sidebar-btn>
+        <i class="fas fa-plus"></i>
+      </button>
+
+    </div>
+
+    <div class="sidebar-info_more">
+
+      <div class="separator"></div>
+
+      <ul class="contacts-list">
+
+        <li class="contact-item">
+
+          <div class="icon-box">
+            <i class="fas fa-calendar">ddd</i>
+          </div>
+
+          <div class="contact-info">
+            <a href="{% url 'home' %}" class="contact-title">ITSREADY</a>
+            <time datetime="1982-06-23">June 23, 1982</time>
+          </div>
+
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle txt-white" href="#" id="navbarDropdown" role="button"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{ request.user.username }}
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a href="#n" class="dropdown-item text-success logout-link" data-toggle="modal" data-target="#logout">
+              <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
+              <span class="title">Logout</span>
+            </a>
+          </div>
+        </li>
+
+      </ul>
+
+      <div class="separator"></div>
+
+      <ul class="social-list">
+
+        <li class="social-item">
+          <a href="#" class="social-link">
+            <ion-icon name="logo-facebook"></ion-icon>
+          </a>
+        </li>
+
+        <li class="social-item">
+          <a href="#" class="social-link">
+            <ion-icon name="logo-twitter"></ion-icon>
+          </a>
+        </li>
+
+        <li class="social-item">
+          <a href="#" class="social-link">
+            <ion-icon name="logo-instagram"></ion-icon>
+          </a>
+        </li>
+
+      </ul>
+
+    </div>
+
+  </aside>
+
+  <!--
+    - #main-content
+  -->
+
+  <div class="main-content">
+
+    <!--
+      - #NAVBAR
+    -->
+
+    <nav class="navbar">
+
+      <ul class="navbar-list">
+
+        <li class="navbar-item">
+          <button class="navbar-link  active" data-nav-link>Home</button>
+        </li>
+
+        <li class="navbar-item">
+          <button class="navbar-link" data-nav-link>Messages</button>
+        </li>
+
+        <li class="navbar-item">
+          <button class="navbar-link" data-nav-link>History</button>
+        </li>
+
+        <li class="navbar-item">
+          <button class="navbar-link" data-nav-link>Contacts</button>
+        </li>
+
+        <li class="navbar-item">
+          <button class="navbar-link" data-nav-link>Contact</button>
+        </li>
+
+      </ul>
+
+    </nav>
+    <!--
+      - #ABOUT
+    -->
+
+    <article class="about  active" data-page="home">
+
+      <header>
+        <h2 class="h2 article-title">Home</h2>
+      </header>
+      <!-- home body -->
+      <!-- stats section -->
+      <section class="stats-wrapper">
+        <!-- start -->
+        <div class="stat-box" tabindex="0">
+          <div class="content-box">
+            <h3 class="stat-title">Total Users</h3>
+            <p class="stat-number">1,200</p>
+          </div>
+          <div class="icon-box">
+            <i class="fas fa-users"></i>
+          </div>
+        </div>
+        <!-- end -->
+        <!-- start -->
+        <div class="stat-box" tabindex="0">
+          <div class="content-box">
+            <h3 class="stat-title">Total Users</h3>
+            <p class="stat-number">1,200</p>
+          </div>
+          <div class="icon-box">
+            <i class="fas fa-users"></i>
+          </div>
+        </div>
+        <!-- end -->
+        <!-- start -->
+        <div class="stat-box" tabindex="0">
+          <div class="content-box">
+            <h3 class="stat-title">Total Users</h3>
+            <p class="stat-number">1,200</p>
+          </div>
+          <div class="icon-box">
+            <i class="fas fa-users"></i>
+          </div>
+        </div>
+        <!-- end -->
+        <!-- start -->
+        <div class="stat-box" tabindex="0">
+          <div class="content-box">
+            <h3 class="stat-title">Total Users</h3>
+            <p class="stat-number">1,200</p>
+          </div>
+          <div class="icon-box">
+            <i class="fas fa-users"></i>
+          </div>
+        </div>
+        <!-- end -->
+      </section>
+      <!-- end of stats section -->
+      <!-- end of home body -->
+    </article>
+
+    <article class="resume" data-page="messages">
+
+      <header>
+        <h2 class="h2 article-title">Messages</h2>
+      </header>
+      <!-- messages tab body -->
+      <!--  -->
+      <!-- end of tab messages body -->
+
+    </article>
+
+    <!--
+      - #PORTFOLIO
+    -->
+
+    <article class="portfolio" data-page="history">
+
+      <header>
+        <h2 class="h2 article-title">History</h2>
+      </header>
+
+
+    </article>
+    <!--
+      - #BLOG
+    -->
+
+    <article class="blog" data-page="contacts">
+
+      <header>
+        <h2 class="h2 article-title">Contacts</h2>
+      </header>
+
+      <!-- contacts tab body -->
+      <!-- contacts-wrapper -->
+      <div class="contacts-container">
+        <button class="add-contact-btn btn btn-primary ml-auto d-block mb-3" aria-label="add contact button">
+          <i class="fas fa-plus"></i>
+        </button>
+        <div class="top-bar d-flex justify-content-between align-items-center mb-3">
+          <h2 class="heading d-flex">Contacts ( <span id="total-contacts-num">0</span> ) </h2>
+          <form action="#n">
+            <div class="col-auto">
+              <div class="input-group mb-2">
+                <input type="search" class="form-control-lg" id="contacts-search-bar" placeholder="Search name ">
+              </div>
+            </div>
+          </form>
+        </div>
+        <table class="table" id="contacts-table" data-table>
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Name</th>
+              <th scope="col">Email</th>
+              <th scope="col">Number</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- table row start -->
+            <tr class="contacts-row-data">
+              <th scope="row" data-index></th>
+              <td>Mark</td>
+              <td>Otto@gmail</td>
+              <td>8786</td>
+              <td>
+                <button class="btn btn-sm btn-primary mr-2" aria-label="edit contact button">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="btn btn-sm btn-danger" aria-label="delete contact button">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+            <!-- end of table row start -->
+            <!-- table row start -->
+            <tr class="contacts-row-data">
+              <th scope="row" data-index></th>
+              <td>Mark</td>
+              <td>Otto@gmail</td>
+              <td>8786</td>
+              <td>
+                <button class="btn btn-sm btn-primary mr-2" aria-label="edit contact button">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="btn btn-sm btn-danger" aria-label="delete contact button">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+            <!-- end of table row start -->
+          </tbody>
+        </table>
+      </div>
+      <!-- end of contacts-wrapper -->
+      <!-- end of contacts tab  body -->
+
+    </article>
+
+    <!-- #CONTACT -->
+    <article class="contact" data-page="contact">
+      <header>
+        <h2 class="h2 article-title">Contact</h2>
+      </header>
+
+    </article>
+
+  </div>
+
+</main>
 
 <!-- modal popup for logout -->
 <!-- Modal -->
 <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="logoutLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="logoutLabel">Are you sure you want to log out?</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-footer">
-            <a href="{% url 'logout' %}" type="button" class="btn btn-success">Log out</a>
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-        </div>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="logoutLabel">Are you sure you want to log out?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-footer">
+        <a href="{% url 'logout' %}" type="button" class="btn btn-success">Log out</a>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
+</div>
 <!-- end of modal popup for logout -->
 {% endblock %}
