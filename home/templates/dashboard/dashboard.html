@@ -1,5 +1,130 @@
 {% extends "dashboard/dashboard_base.html" %}
 {% load static %}
 {% block content %}
+<!-- sidebar -->
+<aside class="dashboard-side-nav fixed-top bg-success p-3 shadow">
+    <div class="dashboard-side-nav-container">
+        <a href="{% url 'home' %}" class="font-weight-bold fz-lg2 mb-4 text-white d-block">ITSREADY</a>
+        <p class="text-white">Dashboard</p>
+        <div class="dashboard-side-nav-menu">
+            <ul>
+                <li>
+                    <a href="#n" class="active" data-target="profile" aria-label="profile tab link">
+                        <span class="icon"><i class="fas fa-user"></i></span>
+                        <span class="title">Profile</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#n" data-target="messages" aria-label="messages tab link">
+                        <span class="icon"><i class="fas fa-sms"></i></span>
+                        <span class="title">Messages</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#n" data-target="customers" aria-label="customers tab link">
+                        <span class="icon"><i class="fas fa-users"></i></span>
+                        <span class="title">Customers</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#N" data-target="settings" aria-label="Settings tab link">
+                        <span class="icon"><i class="fas fa-cog"></i></span>
+                        <span class="title">Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</aside>
+<!-- end of sidebar -->
+<!-- main container -->
+<main class="main-dashboard-container shadow">
+    <!-- top nav -->
+     <nav class="navbar navbar-expand-sm navbar-dark bg-success shadow">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+            </li>
+            {% if request.path == '/' %}
+            <li class="nav-item">
+              <a class="nav-link txt-white" href="#about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link txt-white" href="#contact">Contact us</a>
+            </li>
+            {% else %}
+            {# #}
+            {% endif %}
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle txt-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{ request.user.username }}
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a href="#n" class="dropdown-item text-success" data-toggle="modal" data-target="#logout">
+                    <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
+                    <span class="title">Logout</span>
+                </a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    <!-- end of top nav -->
+      <!-- main content container -->
+      <div class="main-content-container">
+        <!-- start of tab content box -->
+        <div class="tab-content-box active" data-target="profile">
+            <p>profile</p>
+        </div>
+        <!-- end of tab content box -->
+        <!-- start of tab content box -->
+        <div class="tab-content-box" data-target="messages">
+            <p>messages</p>
+        </div>
+        <!-- end of tab content box -->
+        <!-- start of tab content box -->
+        <div class="tab-content-box" data-target="customers">
+            <p>customers</p>
+        </div>
+        <!-- end of tab content box -->
+        <!-- start of tab content box -->
+        <div class="tab-content-box" data-target="settings">
+            <p>settings</p>
+        </div>
+        <!-- end of tab content box -->
+      </div>
+      <!-- end of main content container -->
+      <!-- dashboard footer -->
+      <footer class="dashboard-footer bg-success">
+            <div class="dashboard-footer-container w-100">
+                <p class="text-center text-white" style="font-size: 1.2rem;">&copy;Copyrights ITSREADY | <span id="date"></span> all rights reserved.</p>
+            </div>
+      </footer>
+      <!-- end of dashboard footer -->
+</main>
+<!-- end of main container -->
 
+<!-- modal popup for logout -->
+<!-- Modal -->
+<div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="logoutLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="logoutLabel">Are you sure you want to log out?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-footer">
+            <a href="{% url 'logout' %}" type="button" class="btn btn-success">Log out</a>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- end of modal popup for logout -->
 {% endblock %}
