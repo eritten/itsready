@@ -42,11 +42,15 @@ Register
     <form class="signup-form p-4 d-flex flex-column bg-success rounded shadow" action="{% url 'signup' %}" method="POST">
         {% csrf_token %}
         {{form}}
+        {% comment %} google capture verification {% endcomment %}
+        
+        <div class="g-recaptcha" data-sitekey="6LfEJ8onAAAAALh-eVIIHBseSNg-rjXqjreG_ur5"></div>
+
         <input type="submit" class="btn btn-light text-success font-weight-bold fz-sm d-block w-50" value="Signup" />
     </form>
     <div class="info-box">
         <p class="helptext">Already have an account? <a href="{% url 'login' %}">Login</a></p>
     </div>
 </div>
-
+  
 {% endblock %}
