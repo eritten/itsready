@@ -11,8 +11,9 @@ urlpatterns = [
 path("", home, name="home"),
 path("account/", include("django.contrib.auth.urls")),
     path('admin/', admin.site.urls),
-path("signup/", signup, name="signup"),
-path("dashboard/", views.dashboard, name="dashboard")
+# path("signup/", signup, name="signup"),
+path("dashboard/", views.dashboard, name="dashboard"),
+path('api/', include('home.urls')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

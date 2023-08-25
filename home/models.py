@@ -37,13 +37,24 @@ class PaymentHistory(models.Model):
     def __str__(self):
         return self.user.username
     
+# saving contact information. it should have user, contact name, contact phone number and contact email.
+class Contact(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    contact_name = models.CharField(max_length=100, blank=True)
+    contact_phone_number = models.CharField(max_length=100, blank=True)
+    contact_email = models.CharField(max_length=100, blank=True)
+    date = models.DateTimeField(default=timezone.now)
+    def __str__(self):
+        return self.user.username
+    
+   
 # this is a sms and voiceMail sending platform. a class for storing sms information.
 class Sms(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     sms_text = models.TextField()
     sms_date = models.DateTimeField(default=timezone.now)
     sms_status = models.BooleanField(default=False)
-
+    contact = models.ForeignKey(Contact, on_delete=models.CASCADE)
     def __str__(self):
         return self.user.username 
     
@@ -53,17 +64,7 @@ class VoiceMail(models.Model):
     voice_mail_text = models.TextField()
     voice_mail_date = models.DateTimeField(default=timezone.now)
     voice_mail_status = models.BooleanField(default=False)
-
+    contact = models.ForeignKey(Contact, on_delete=models.CASCADE)
     def __str__(self):
         return self.user.username
-    
-# saving contact information. it should have user, contact name, contact phone number and contact email.
-class Contact(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    contact_name = models.CharField(max_length=100, blank=True)
-    contact_phone_number = models.CharField(max_length=100, blank=True)
-    contact_email = models.CharField(max_length=100, blank=True)
-
-    def __str__(self):
-        return self.user.username
-    
+ 
