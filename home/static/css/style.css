@@ -110,6 +110,9 @@ img, ion-icon, a, button, time, span { display: block; }
 .txt-white {
     color: white!important;
 }
+.gap-2 {
+  gap: 2rem;
+}
 .header {
     width: 100%;
     height: 100vh!important;
@@ -413,7 +416,7 @@ svg {
     #NAVBAR
   \*-----------------------------------*/
   
-  .navbar {
+  .dashboard-navbar {
     position: fixed;
     bottom: 0;
     left: 0;
@@ -566,7 +569,7 @@ svg {
      * #NAVBAR
      */
   
-    .navbar { border-radius: 20px 20px 0 0; }
+    .dashboard-navbar { border-radius: 20px 20px 0 0; }
   
     .navbar-list { gap: 20px; }
   
@@ -611,11 +614,7 @@ svg {
    */
   
   @media (min-width: 1024px) {
-  
-    /**
-     * CUSTOM PROPERTY
-     */
-  
+
     :root {
   
       /**
@@ -652,7 +651,7 @@ svg {
      * NAVBAR
      */
   
-    .navbar {
+    .dashboard-navbar {
       position: absolute;
       bottom: auto;
       top: 0;
@@ -677,7 +676,7 @@ svg {
      * RESET
      */
   
-    body::-webkit-scrollbar { width: 18px; }
+    body::-webkit-scrollbar { width: 14px; }
   
     body::-webkit-scrollbar-track { background: var(--green-alt); }
   
@@ -689,7 +688,7 @@ svg {
                   inset -1px -1px 0 hsla(0, 0%, 100%, 0.11);
     }
 
-    body::-webkit-scrollbar-thumb:hover { background: rgb(5, 47, 119); }
+    body::-webkit-scrollbar-thumb:hover { background: rgb(5, 119, 60); }
   
     body::-webkit-scrollbar-button { height: 60px; }
 

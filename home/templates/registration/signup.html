@@ -38,7 +38,7 @@ Register
     }
 </style>
 <!-- end of styles -->
-<div class="container mh100 justify-content-center flex-column align-items-center d-flex" style="padding-top: 56px;">
+<div class="container mh100 justify-content-center flex-column align-items-center d-flex" style="padding-top: 75px;">
     <form class="signup-form p-4 d-flex flex-column bg-success rounded shadow" action="{% url 'signup' %}" method="POST">
         {% csrf_token %}
         {{form}}
@@ -49,7 +49,7 @@ Register
         <input type="submit" class="btn btn-light text-success font-weight-bold fz-sm d-block w-50" value="Signup" />
     </form>
     <div class="info-box">
-        <p class="helptext">Already have an account? <a href="{% url 'login' %}">Login</a></p>
+        <p class="helptext d-flex gap-2">Already have an account? <a href="{% url 'login' %}">Login</a></p>
     </div>
 </div>
   

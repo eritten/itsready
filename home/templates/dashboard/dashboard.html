@@ -93,7 +93,7 @@
       - #NAVBAR
     -->
 
-    <nav class="navbar">
+    <nav class="dashboard-navbar">
 
       <ul class="navbar-list">
 
@@ -217,7 +217,7 @@
       <!-- contacts tab body -->
       <!-- contacts-wrapper -->
       <div class="contacts-container">
-        <button class="add-contact-btn btn btn-primary ml-auto d-block mb-3" aria-label="add contact button">
+        <button class="add-contact-btn btn btn-primary ml-auto d-block mb-3" aria-label="add contact button" data-toggle="modal" data-target="#addcontact">
           <i class="fas fa-plus"></i>
         </button>
         <div class="top-bar d-flex justify-content-between align-items-center mb-3">
@@ -292,8 +292,10 @@
 
 </main>
 
+
+
+<!-- ===================modal popups======== -->
 <!-- modal popup for logout -->
-<!-- Modal -->
 <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="logoutLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -311,4 +313,25 @@
   </div>
 </div>
 <!-- end of modal popup for logout -->
+<!-- modal popup for add contact -->
+<div class="modal fade" id="addcontact" tabindex="-1" role="dialog" aria-labelledby="addcontactlabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="logoutLabel">Are you sure you want to log out?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Modal body text goes here.</p>
+      </div>
+      <div class="modal-footer">
+        <a href="{% url 'logout' %}" type="button" class="btn btn-success">Log out</a>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end of modal popup for add contact -->
 {% endblock %}
