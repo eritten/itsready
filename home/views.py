@@ -34,6 +34,7 @@ def signup(request):
         form = UserForm(request.POST)
             # addd google recaptcha v3 and use requests to verify the token
         captcha_url = "https://www.google.com/recaptcha/api/siteverify"
+        captcha_token = request.POST.get('g-recaptcha-response')
         captcha_key = "6LfEJ8onAAAAAEC_p0XsnDWEf_MzQ0Sc6-HH2qCJ"
         data = {
             'secret': captcha_key,
@@ -45,7 +46,7 @@ def signup(request):
             response = json.loads(captcha_server.text)
             if response['success'] == False:
                 messages.error(request, 'Invalid Captcha. Try Again')
-                return redirect('/')
+#                return redirect('/')
         except:
             messages.error(request, 'Captcha could not be verified. Try Again')
         if form.is_valid():
