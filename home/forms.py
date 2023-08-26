@@ -11,6 +11,9 @@ class UserForm(forms.ModelForm):
     class Meta:
         model =User
         fields = ["username", "email", "password", "password2"]
+        labels = {
+        "password2": "Confirm Password"
+        }
     def clean_password2(self):
         password = self.cleaned_data.get("password")
         password2 = self.cleaned_data.get("password2")
