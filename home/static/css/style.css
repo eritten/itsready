@@ -110,6 +110,13 @@ img, ion-icon, a, button, time, span { display: block; }
 .txt-white {
     color: white!important;
 }
+.bg-green-gradient {
+  background: rgb(14,102,7);
+  background: linear-gradient(90deg, rgba(14,102,7,1) 0%, rgba(6,158,72,0.9529061624649859) 100%)!important;
+}
+.gap-1 {
+  gap: 1rem;
+}
 .gap-2 {
   gap: 2rem;
 }
@@ -134,11 +141,17 @@ img, ion-icon, a, button, time, span { display: block; }
 .fz-sm {
     font-size: 1.4rem;
 }
+.fz-xsm {
+  font-size: 1rem!important;
+}
 .fz-lg {
     font-size: 1.6rem;
 }
 .fz-lg2 {
     font-size: 1.8rem;
+}
+.mxw-700 {
+  max-width: 700px!important;
 }
 .ttu {
     text-transform: uppercase!important;
@@ -326,12 +339,13 @@ svg {
     top: -15px;
     right: -15px;
     border-radius: 0 15px;
-    font-size: 13px;
+    font-size: 3rem;
     color: var(--orange-yellow-crayola);
     background: var(--border-gradient-onyx);
     padding: 10px;
     box-shadow: var(--shadow-2);
     transition: var(--transition-1);
+    font-weight: bold;
     z-index: 1;
   }
   
@@ -346,7 +360,7 @@ svg {
   }
   
   .info_more-btn:hover,
-  .info_more-btn:focus { background: var(--bg-gradient-yellow-1); }
+  .info_more-btn:focus-visible { background: var(--darkGreen); }
   
   .info_more-btn:hover::before,
   .info_more-btn:focus::before { background: var(--bg-gradient-yellow-2); }
@@ -683,14 +697,13 @@ svg {
     body::-webkit-scrollbar-thumb {
       border: 2px solid var(--orange-yellow-crayola);
       background: var(--darkGreen);
-      border-radius: 20px;
+      border-radius: 100vw;
       box-shadow: inset 1px 1px 0 hsla(0, 0%, 100%, 0.11),
                   inset -1px -1px 0 hsla(0, 0%, 100%, 0.11);
     }
 
     body::-webkit-scrollbar-thumb:hover { background: rgb(5, 119, 60); }
   
-    body::-webkit-scrollbar-button { height: 60px; }
 
     /**
      * REUSED STYLE
@@ -848,3 +861,30 @@ svg {
 
 /* end of contacts tab */
 /* end of body of each tab */
+
+@media (max-width: 480px) {
+  .display-4 {
+    font-size: 2rem!important;
+  }
+  .fz-xsm {
+    font-size: .8rem!important;
+  }
+  .info_more-btn {
+    font-size: 1.5rem!important;
+  }
+  .stats-wrapper {
+    grid-template-rows: 4em;
+
+    .content-box {
+      .stat-title {
+        font-size: 1rem!important;
+      }
+      .stat-number {
+        font-size: 1rem!important;
+      }
+    }
+    .icon-box {
+      font-size: 1.5rem!important;
+    }
+  }
+}
