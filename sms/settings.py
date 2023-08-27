@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-hkf(3+p&v%td0@_6!_g$--$8xlijawenrdrt4ikcwxtwn-fnz)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -128,7 +128,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-LOGIN_URL = "/account/login/"
+LOGIN_URL = "/users/login/"
 LOGIN_REDIRECT_URL = "/dashboard/"
-LOGOUT_URL = "/account/logout/"
-LOGOUT_REDIRECT_URL = "/account/logout/"
+LOGOUT_URL = "/users/logout/"
+# LOGOUT_REDIRECT_URL = "/account/logout/"
