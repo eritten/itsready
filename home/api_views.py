@@ -12,7 +12,7 @@ class CreateContactView(generics.CreateAPIView):
     # setting the serializer class
     serializer_class = ContactSerializer
     # setting the permission class
-    permission_classes = [permissions.IsAuthenticated]
+#    permission_classes = [permissions.IsAuthenticated]
     
     # overriding the perform_create method
     def perform_create(self, serializer):
@@ -21,6 +21,25 @@ class CreateContactView(generics.CreateAPIView):
         
 # creating list view for listing all the contacts of the current user
 class ContactListView(generics.ListAPIView):
+    # setting the serializer class
+    serializer_class = ContactSerializer
+    # setting the permission class
+#    permission_classes = [permissions.IsAuthenticated]
+    
+    # overriding the get_queryset method
+    def get_queryset(self):
+        # returning the contacts of the current user
+        return Contact.objects.filter(user=self.request.user)
+    
+# view to delete a contact
+class DeleteContactView(generics.DestroyAPIView):
+    # setting the serializer class
+    serializer_class = ContactSerializer
+    # setting the permission class
+    permission_classes = [permissions.IsAuthenticated]
+    
+# view to update a contact
+class UpdateContactView(generics.UpdateAPIView):
     # setting the serializer class
     serializer_class = ContactSerializer
     # setting the permission class

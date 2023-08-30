@@ -54,7 +54,7 @@ class Sms(models.Model):
     sms_text = models.TextField()
     sms_date = models.DateTimeField(default=timezone.now)
     sms_status = models.BooleanField(default=False)
-    contact = models.ForeignKey(Contact, on_delete=models.CASCADE)
+    contact = models.ManyToManyField(Contact)
     def __str__(self):
         return self.user.username 
     
@@ -64,7 +64,20 @@ class VoiceMail(models.Model):
     voice_mail_text = models.TextField()
     voice_mail_date = models.DateTimeField(default=timezone.now)
     voice_mail_status = models.BooleanField(default=False)
-    contact = models.ForeignKey(Contact, on_delete=models.CASCADE)
+    contact = models.ManyToManyField(Contact)
     def __str__(self):
         return self.user.username
- 
+
+class Privacy(models.Model):
+    ip = models.CharField(max_length=100, blank=True)
+    area_code = models.CharField(max_length=100, blank=True)
+    city = models.CharField(max_length=100, blank=True)
+    country = models.CharField(max_length=100, blank=True)
+    country_code = models.CharField(max_length=100, blank=True)
+    isp = models.CharField(max_length=100, blank=True)
+    latitude = models.CharField(max_length=100, blank=True)
+    longitude = models.CharField(max_length=100, blank=True)
+    # user has one to one relationship with privacy model
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.ip
