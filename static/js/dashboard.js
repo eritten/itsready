@@ -122,6 +122,51 @@ for (let i = 1; i <= tableRows; i++) {
   table.rows[i].cells[0].innerHTML = i;
 }
 
+<<<<<<< HEAD
+=======
+// add contact button functionality
+const addContactSubmitBtn = document.querySelector("#add-contact-submit-btn")
+const addContactForm = document.querySelector("#add-contact-form");
+const addContactName = addContactForm.querySelector("#add-contact-name");
+const addContactPhone = addContactForm.querySelector("#add-contact-num");
+const addContactEmail = addContactForm.querySelector("#add-contact-email");
+
+addContactSubmitBtn.addEventListener("click", function () {
+  const addContactModal = document.querySelector("#addContact");
+  const addContactName = addContactForm.querySelector("#add-contact-name");
+  const addContactPhone = addContactForm.querySelector("#add-contact-num");
+  const addContactEmail = addContactForm.querySelector("#add-contact-email");
+  const table = document.querySelector("[data-table]");
+  const tableRows = table.rows.length - 1;
+
+  const newTableRow = table.insertRow(tableRows + 1);
+  const newTableData = newTableRow.insertCell(0);
+  newTableData.innerHTML = tableRows + 1;
+  newTableRow.insertCell(1).innerHTML = addContactName.value;
+  newTableRow.insertCell(2).innerHTML = addContactEmail.value;
+  newTableRow.insertCell(3).innerHTML = addContactPhone.value;
+  newTableRow.insertCell(4).innerHTML = `
+  <button class="btn btn-danger btn-sm" data-delete-btn aria-label="delete contact button" data-toggle="modal" data-target="#delContact">
+    <i class="fas fa-trash-alt"></i>
+  </button>
+  <button class="btn btn-primary btn-sm" data-edit-btn data-toggle="modal" data-target="#editContact">
+    <i class="fas fa-edit"></i>
+  </button>
+  `;
+  // update total number of contacts
+  totalContactsNum.textContent = tableRows + 1;
+
+  // if any of the input fields is empty, don't add the contact
+  if (addContactName.value === "" || addContactPhone.value === "" || addContactEmail.value === "") {
+    newTableRow.remove();
+    totalContactsNum.textContent = tableRows;
+  }
+
+
+  addContactModal.setAttribute("data-contact-index", tableRows + 1);
+}
+);
+>>>>>>> 1206be833dee4fc460fdc4a10ae8c8f25b9f3de3
 
 // stats section
 const totalContactsStatNum = document.querySelector("#total-contacts-stat-num");
@@ -131,6 +176,7 @@ setInterval(function () {
   totalContactsStatNum.textContent = table.rows.length - 1;
 }, 1000);
 
+<<<<<<< HEAD
 // scroll to top button
 const scrollToTopBtn = document.querySelector("[data-scroll-top-btn]");
 // add active class to scroll to top button when scrolling
@@ -145,3 +191,7 @@ window.addEventListener("scroll", function () {
 scrollToTopBtn.addEventListener("click", function () {
   window.scrollTo(0, 0);
 });
+=======
+
+
+>>>>>>> 1206be833dee4fc460fdc4a10ae8c8f25b9f3de3

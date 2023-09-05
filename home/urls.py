@@ -1,9 +1,7 @@
-from .api_views import CreateContactView, ContactListView
+from .api_views import get_contacts, add_contact
 from django.urls import path
 
 urlpatterns = [
-    # path for creating a contact
-    path('create-contact/', CreateContactView.as_view(), name='create_contact'),
-    # path for listing all contacts
-    path('list-contacts/', ContactListView.as_view(), name='list_contacts'),
+    path('get_contacts/', get_contacts, name='get_contacts'),
+    path('add_contact/', add_contact, name='add_contact'),
 ]

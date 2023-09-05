@@ -861,6 +861,7 @@ svg {
 
 /* end of contacts tab */
 /* end of body of each tab */
+<<<<<<< HEAD
 /* button that allows user to scroll to top */
 .scroll-top-btn {
     position: fixed;
@@ -877,6 +878,9 @@ svg {
     transition: var(--transition-1);
     z-index: 1000000;
 }
+=======
+
+>>>>>>> 1206be833dee4fc460fdc4a10ae8c8f25b9f3de3
 @media (max-width: 480px) {
   .display-4 {
     font-size: 2rem!important;
