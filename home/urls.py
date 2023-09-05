@@ -1,4 +1,4 @@
-from .api_views import CreateContactView, ContactListView, UpdateContactView, DeleteContactView
+from .api_views import CreateContactView, ContactListView, UpdateContactView, DeleteContactView, SearchContactView, Contact
 from django.urls import path
 
 urlpatterns = [
@@ -13,4 +13,10 @@ urlpatterns = [
     # path for deleting a contact
     path('delete-contact/<int:pk>/', DeleteContactView.as_view(), name='delete_contact'),
     
+    # path for searching contacts
+    path('search-contact/', SearchContactView.as_view(), name='search_contact'),
+    
+
+    # path for retrieving a contact
+    path('contact/<int:pk>/', Contact.as_view(), name='contact'),
 ]

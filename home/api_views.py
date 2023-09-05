@@ -49,3 +49,24 @@ class UpdateContactView(generics.UpdateAPIView):
     def get_queryset(self):
         # returning the contacts of the current user
         return Contact.objects.filter(user=self.request.user)
+    
+# view for searching contacts
+class SearchContactView(generics.ListAPIView):
+    # setting the serializer class
+    serializer_class = ContactSerializer
+    # setting the permission class
+    permission_classes = [permissions.IsAuthenticated]
+# overriding the get_queryset method and use query search param to search for contacts
+    def get_queryset(self):
+        # getting the query search param
+        query = self.request.query_params.get('search')
+        # returning the contacts of the current user
+        return Contact.objects.filter(user=self.request.user, contact_name__icontains=query)
+    
+# view for retrieving a contact
+class Contact(generics.RetrieveAPIView):
+    # setting the serializer class
+    serializer_class = ContactSerializer
+    # setting the permission class
+    permission_classes = [permissions.IsAuthenticated]
+    queryset = Contact.objects.all()
