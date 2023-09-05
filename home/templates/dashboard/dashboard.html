@@ -2,10 +2,94 @@
 {% load static %}
 {% block content %}
 
-</main>
 <!-- end of main container -->
 <main class="main-container">
 
+  <!-- button that allows user to scroll to top of page -->
+  <style>
+    .scroll-top-btn {
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+      transition: .5s;
+      -webkit-transition: .5s;
+      -ms-transition: .5s;
+      -moz-transition: .5s;
+      -o-transition: .5s;
+    }
+    .scroll-top-btn.active {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: all;
+    }
+    .compose-sms-box {
+      display: none;
+      width: clamp(100%, 60%, 70%);
+      margin: 2rem auto;
+      animation: fade 0.5s ease backwards;
+      -webkit-animation: fade 0.5s ease backwards;
+      -moz-animation: fade 0.5s ease backwards;
+      -o-animation: fade 0.5s ease backwards;
+
+      & textarea {
+        width: 100%;
+        height: 10rem;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 1rem;
+        resize: none;
+        margin-bottom: 1rem;
+      }
+      & button {
+        width: 5rem;
+        display: block;
+        margin: 0 auto;
+      }
+    }
+    .compose-sms-box.active {
+      display: block;
+      animation: fade 0.5s ease backwards;
+      -webkit-animation: fade 0.5s ease backwards;
+      -moz-animation: fade 0.5s ease backwards;
+      -o-animation: fade 0.5s ease backwards;
+    }
+    @media (max-width: 768px) {
+      #contacts-table {
+        overflow: auto;
+        max-width: 100%;
+      }
+      .contacts-total-hd {
+        font-size: 1.5rem;
+      }
+      article {
+        margin-bottom: 10rem;
+      }
+    }
+    @media (max-width: 480px) {
+      .top-bar {
+        flex-direction: column;
+        gap: 2rem;
+
+        & input {
+          width: 100%;
+        }
+      }
+      .scroll-top-btn {
+        bottom: 8rem;
+        right: 2rem;
+      }
+      .contacts-total-hd {
+        font-size: 1.2rem;
+      }
+      .contacts-container {
+        overflow-x: auto;
+      }
+    }
+  </style>
+  <button class="scroll-top-btn text-white" data-scroll-top-btn aria-label="scroll to top button">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+  <!-- end of button -->
   <!-- sidebar -->
   <aside class="sidebar" data-sidebar>
 
@@ -28,7 +112,7 @@
 
       <ul class="contacts-list">
 
-        <li class="contact-item">
+        <!-- <li class="contact-item">
 
           <div class="icon-box">
             <i class="fas fa-calendar">ddd</i>
@@ -39,7 +123,7 @@
             <time datetime="1982-06-23">June 23, 1982</time>
           </div>
 
-        </li>
+        </li> -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle txt-white" href="#" id="navbarDropdown" role="button"
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -145,7 +229,7 @@
       - #ABOUT
     -->
 
-    <article class="about  active" data-page="home">
+    <article class="home  active" data-page="home">
 
       <header>
         <h2 class="h2 article-title">Home</h2>
@@ -167,16 +251,27 @@
         <!-- start -->
         <div class="stat-box" tabindex="0">
           <div class="content-box">
-            <h3 class="stat-title">Total Users</h3>
+            <h3 class="stat-title">Total sms sent</h3>
             <p class="stat-number">1,200</p>
           </div>
           <div class="icon-box">
-            <i class="fas fa-users"></i>
+            <i class="fas fa-sms"></i>
           </div>
         </div>
         <!-- end -->
         <!-- start -->
         <div class="stat-box" tabindex="0">
+          <div class="content-box">
+            <h3 class="stat-title">Total voicemails</h3>
+            <p class="stat-number">1,200</p>
+          </div>
+          <div class="icon-box">
+            <i class="fas fa-microphone"></i>
+          </div>
+        </div>
+        <!-- end -->
+        <!-- start -->
+        <!-- <div class="stat-box" tabindex="0">
           <div class="content-box">
             <h3 class="stat-title">Total Users</h3>
             <p class="stat-number">1,200</p>
@@ -184,18 +279,7 @@
           <div class="icon-box">
             <i class="fas fa-users"></i>
           </div>
-        </div>
-        <!-- end -->
-        <!-- start -->
-        <div class="stat-box" tabindex="0">
-          <div class="content-box">
-            <h3 class="stat-title">Total Users</h3>
-            <p class="stat-number">1,200</p>
-          </div>
-          <div class="icon-box">
-            <i class="fas fa-users"></i>
-          </div>
-        </div>
+        </div> -->
         <!-- end -->
       </section>
       <!-- end of stats section -->
@@ -206,8 +290,7 @@
             <h2 class="banner-title display-4 text-uppercase text-white text-center">Itsready</h2>
           </div>
           <div class="col-12">
-            <p class="banner-text text-center text-white fz-xsm mxw-700 d-block mx-auto">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum
-              voluptates. Quisquam, voluptatum voluptates.</p>
+            <p class="banner-text text-center text-white fz-xsm mxw-700 d-block mx-auto">ITSREADY is a versatile platform designed to enhance your communication experience. With ITSREADY, you can effortlessly send both SMS and voicemails to your saved contacts, all within one streamlined interface. Whether you need to deliver quick text messages or expressive voicemails, ITSREADY ensures that your messages reach your intended recipients without hassle. Say goodbye to juggling multiple platforms – ITSREADY simplifies your communication by bringing SMS and voicemails together for your convenience.</p>
           </div>
         </div>
       </div>
@@ -215,7 +298,10 @@
       <!-- details section -->
       <style>
         .card {
-          width: 15rem;
+          width: 100%;
+          height: 18rem;
+          overflow: auto;
+          margin-bottom: 0.2rem;
         }
         @media (max-width: 480px) {
           .card {
@@ -224,14 +310,14 @@
         }
       </style>
       <div class="container">
-        <div class="row">
+        <div class="row align-items-center justify-content-center">
 
           <div class="col-sm-12 col-md-6 col-lg-4">
             <div class="card">
               <div class="card-body">
                 <h5 class="card-title text-success">
                   <i class="fas fa-sms"></i>
-                  Send messages to agents</h5>
+                  Send messages to your contacts</h5>
                 <h6 class="card-subtitle mb-2 text-muted">Via sms</h6>
                 <p class="card-text fz-xsm">"ITSREADY" enables you to effortlessly send SMS to your agents by saving their contacts on the designated webpage's contacts tab. Stay connected seamlessly!</p>
               </div>
@@ -241,10 +327,10 @@
             <div class="card">
               <div class="card-body">
                 <h5 class="card-title text-success">
-                  <i class="fas fa-sms"></i>
-                  Send messages to agents</h5>
+                  <i class="fas fa-microphone"></i>
+                  Send voicemails to your contacts</h5>
                 <h6 class="card-subtitle mb-2 text-muted">Via sms</h6>
-                <p class="card-text fz-xsm">"ITSREADY" enables you to effortlessly send SMS to your agents by saving their contacts on the designated webpage's contacts tab. Stay connected seamlessly!</p>
+                <p class="card-text fz-xsm">"ITSREADY" makes it effortless to send voicemails to your agents by storing their contacts in the contacts tab. Stay connected by using this platform for smooth communication!</p>
               </div>
             </div>
           </div>
@@ -266,22 +352,25 @@
       <!-- end of home body -->
     </article>
 
-    <article class="resume" data-page="messages">
+    <article class="messages" data-page="messages">
 
       <header>
         <h2 class="h2 article-title">Messages</h2>
       </header>
       <!-- messages tab body -->
-      <!--  -->
+      <!-- compose message  -->
+      <button class="btn btn-success my-3 compose-sms-reveal-btn">Compose sms</button>
+
+      <div class="compose-sms-box" role="alert" aria-label="compse message here">
+        <textarea placeholder="compse message here"></textarea>
+        <button class="btn btn-success" data-target="#sendMessage" data-toggle="modal">Send</button>
+      </div>
+      <!-- end of compose message  -->
       <!-- end of tab messages body -->
 
     </article>
 
-    <!--
-      - #PORTFOLIO
-    -->
-
-    <article class="portfolio" data-page="history">
+    <article class="history" data-page="history">
 
       <header>
         <h2 class="h2 article-title">History</h2>
@@ -293,7 +382,7 @@
       - #BLOG
     -->
 
-    <article class="blog" data-page="contacts">
+    <article class="contacts" data-page="contacts">
 
       <header>
         <h2 class="h2 article-title">Contacts</h2>
@@ -305,8 +394,8 @@
         <button class="add-contact-btn btn btn-primary ml-auto d-block mb-3" aria-label="add contact button" data-toggle="modal" data-target="#addcontact" data-toggle="tooltip" data-placement="left" title="Add contact">
           <i class="fas fa-plus"></i>
         </button>
-        <div class="top-bar d-flex justify-content-between align-items-center mb-3">
-          <h2 class="heading d-flex">Contacts ( <span id="total-contacts-num">0</span> ) </h2>
+        <div class="top-bar d-flex justify-content-between align-items-center mb-3" >
+          <h2 class="heading d-flex contacts-total-hd" style="flex-wrap: nowrap; white-space: nowrap;">Contacts ( <span id="total-contacts-num">0</span> ) </h2>
           <form action="#n">
             <div class="col-auto">
               <div class="input-group mb-2">
@@ -350,9 +439,9 @@
     </article>
 
     <!-- #CONTACT -->
-    <article class="contact" data-page="contact">
+    <article class="contact" data-page="another">
       <header>
-        <h2 class="h2 article-title">Contact</h2>
+        <h2 class="h2 article-title">Another</h2>
       </header>
 
     </article>
@@ -497,4 +586,31 @@
   </div>
 </div>
 <!-- end of modal popup for send message -->
+<!-- modal popup for send message -->
+<div class="modal fade" id="sendMessage" tabindex="-1" role="dialog" aria-labelledby="sendMessageLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="logoutLabel">Send to</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        <a href="#" type="button" class="btn btn-success">send</a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end of modal popup for send message -->
+
+<script>
+  const composeSmsRevealBtn = document.querySelector('.compose-sms-reveal-btn');
+
+  // add active class to compose sms box when compose sms button is clicked
+  composeSmsRevealBtn.addEventListener('click', () => {
+    document.querySelector('.compose-sms-box').classList.toggle('active');
+  });
+</script>
 {% endblock %}
