@@ -17,10 +17,10 @@ class ContactSerializer(serializers.ModelSerializer):
     # user has one to many relationship with contact model
 #    user = serializers.ReadOnlyField(source='user.username')
 # use string related field to create the relationshi
-    user = serializers.StringRelatedField(read_only=True)
+#    user = serializers.StringRelatedField(read_only=True)
     class Meta:
         model = Contact
-        fields = ['id', 'user',  'contact_phone_number', 'contact_email', 'contact_name']
+        fields = ['id',   'contact_phone_number', 'contact_email', 'contact_name']
 
 # creating a serializer for sms model. it has one to many relationship with user model
 class SmsSerializer(serializers.ModelSerializer):

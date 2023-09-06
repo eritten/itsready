@@ -15,7 +15,7 @@ def add_contact(request):
         user = request.data.get("userid")
         contact_name = request.data.get("contact_name")
         contact_email = request.data.get("contact_email")
-        contact_telephonenumber = request.data.get("contact_telephone_number")
+        contact_telephonenumber = request.data.get("contact_phone_number")
         # if contact_name, contact_email, contact_telephonenumber is not empty then add contact
         if contact_name and contact_email and contact_telephonenumber:
             # get user from User model
