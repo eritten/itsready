@@ -399,7 +399,7 @@
           <form action="#n">
             <div class="col-auto">
               <div class="input-group mb-2">
-                <input type="search" class="form-control-lg" id="contacts-search-bar" placeholder="Search name ">
+                <input type="search" class="form-control-lg" id="contacts-search-bar" placeholder="Search name / email">
               </div>
             </div>
         </div>
@@ -410,25 +410,14 @@
               <th scope="col">Name</th>
               <th scope="col">Email</th>
               <th scope="col">Number</th>
+              <th scope="col"></th>
             </tr>
           </thead>
           <tbody>
             <!-- table row start -->
-            <tr class="contacts-row-data">
-              <th scope="row" data-index></th>
-              <td>Mark</td>
-              <td>Otto@gmail</td>
-              <td>8786</td>
+            <tr class="contacts-row-data" id="contacts-row-data">
             </tr>
-            <!-- end of table row start -->
-            <!-- table row start -->
-            <tr class="contacts-row-data">
-              <th scope="row" data-index></th>
-              <td>Felix</td>
-              <td>feboapong@gmail</td>
-              <td>0548285798</td>
-            </tr>
-            <!-- end of table row start -->
+            <!-- end of table row -->
           </tbody>
         </table>
       </div>
@@ -500,6 +489,8 @@
       <div class="modal-body">
         <!-- add contact form -->
         <form id="add-contact-form">
+          <!-- add csrf token -->
+          {% csrf_token %}
           <div class="form-group">
             <label for="add-contact-name">Name</label>
             <input type="text" class="form-control" id="add-contact-name" placeholder="Contact name" required>

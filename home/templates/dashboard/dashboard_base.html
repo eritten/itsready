@@ -36,27 +36,79 @@
         anchorPlacement: 'top-bottom'
     })
 
-     </script>
-
-     <script>
         //filtering contacts
 document.getElementById("contacts-search-bar").onkeyup = function(e) {
 var search = document.getElementById("contacts-search-bar").value.toLowerCase();
-
-fetch('http://localhost:8000/api/search-contact/?search='+search)
-.then(response => response.json())
-.then(data => {
- alert(data[1].contact_name)
-    
-})
-.catch(error => {
-alert(error)
-})
 }
-
 //end of filtering contacts
+const userId = '{{ request.user.id}}'
+const csrf_token = '{{ csrf_token }}'
 
+
+window.addEventListener("load", ()=>{
+    fetch(`http://localhost:30/api/get_contacts/?userid=${userId}`).then((res) => res.json()).then((data) => {
+        const contact = data
+       // displaying all the contacts data fetched from the api 
+        contact.map((contact) => {
+            const contactsRow = document.querySelector("#contacts-row-data")
+
+            contactsRow.innerHTML += ` 
+            <tr>
+                <th scope="row" data-index>${contact.id}</th>
+                <td class="text-capitalize">${contact.contact_name}</td>
+                <td>${contact.contact_email}</td>
+                <td>
+                    <a href="tel:${contact.contact_phone_number}">${contact.contact_phone_number}</a> 
+                </td>
+                <td class="d-flex">
+                    <button class="btn btn-success btn-sm mr-2" data-toggle="modal" data-target="#editContact" data-index="${contact.id}"><i class="fas fa-edit"></i>  Edit</button>
+
+                    <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delContact" data-index="${contact.id}"><i class="fas fa-trash"></i>  Del</button>
+                </td>
     
-    </script>
+             </tr>
+            `   
+        })
+        
+    })
+
+    // adding a new contact
+    const addContactName = document.querySelector("#add-contact-name")
+    const addContactEmail = document.querySelector("#add-contact-email")
+    const addContactNum = document.querySelector("#add-contact-num")
+    const addContactBtn = document.querySelector("#add-contact-submit-btn")
+
+    // on click of the add contact button add the contact to the database
+    addContactBtn.addEventListener("click", (e) => {
+        e.preventDefault()
+        const addContactNameVal = addContactName.value
+        const addContactEmailVal = addContactEmail.value
+        const addContactNumVal = addContactNum.value
+
+        fetch("http://localhost:30/api/add_contact/", {
+           method: "POST",
+            headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": csrf_token
+            },
+            body: JSON.stringify({
+                contact_name: addContactNameVal,
+                contact_email: addContactEmailVal,
+                contact_phone_number: addContactNumVal,
+                userid: userId
+            }),
+        }).then((res) => res.json()).then((data) => {
+            console.log(data)
+            if(data.status === "success"){
+                window.location.reload()
+            }
+        })
+        
+    })
+
+})
+
+</script>
+    <a href="tel:"></a>
 </body>
 </html>

@@ -40,59 +40,6 @@ const totalContactsNum = document.querySelector("#total-contacts-num");
 // set total number of rows of the table
 totalContactsNum.textContent = tableRows;
 
-// add another table data in each row
-for (let i = 1; i <= tableRows; i++) {
-  const tableData = document.createElement("td");
-  table.rows[i].appendChild(tableData);
-
-  // add delete and edit buttons to each of this table data
-  tableData.innerHTML = `
-  <button class="btn btn-danger btn-sm" data-delete-btn aria-label="delete contact button" data-toggle="modal" data-target="#delContact" data-toggle="tooltip" data-placement="left" title="Delete contact">
-    <i class="fas fa-trash-alt"></i>
-  </button>
-  <button class="btn btn-primary btn-sm" data-edit-btn data-toggle="modal" data-target="#editContact" aria-label="edit contact button" data-toggle="tooltip" data-placement="left" title="Edit contact">
-    <i class="fas fa-edit"></i>
-  </button>
-  <button class="btn btn-success btn-sm" data-send-sms-btn data-toggle="modal" data-target="#send-message" aria-label="send message button" data-toggle="tooltip" data-placement="left" title="Send message">
-    <i class="fas fa-paper-plane"></i>
-  </button>
-  `;
-
-  $(document).ready(function(){
-    $('[data-toggle="tooltip"]').tooltip();
-  });
-  
-  // add edit button event
-  const editBtn = tableData.querySelector("[data-edit-btn]");
-  editBtn.addEventListener("click", function () {
-    const contactName = table.rows[i].cells[1].textContent;
-    const contactEmail = table.rows[i].cells[2].textContent;
-    const contactPhone = table.rows[i].cells[3].textContent;
-    const updateContactBtn = document.querySelector("#updateContact");
-
-    const editContactModal = document.querySelector("#editContact");
-    const editContactForm = document.querySelector("#edit-contact-form");
-    const editContactName = editContactForm.querySelector("#edit-contact-name");
-    const editContactPhone = editContactForm.querySelector("#edit-contact-phone");
-    const editContactEmail = editContactForm.querySelector("#edit-contact-email");
-
-    editContactName.value = contactName;
-    editContactPhone.value = contactPhone;
-    editContactEmail.value = contactEmail;
-
-    editContactModal.setAttribute("data-contact-index", i);
-
-    updateContactBtn.addEventListener("click", function () {
-      table.rows[i].cells[1].textContent = editContactName.value;
-      table.rows[i].cells[2].textContent = editContactEmail.value;
-      table.rows[i].cells[3].textContent = editContactPhone.value;
-    }
-    );
-
-  }
-  );
-}
-
 // update table when search input is changed
 const searchInput = document.querySelector("#contacts-search-bar");
 searchInput.addEventListener("input", function () {
@@ -115,12 +62,6 @@ searchInput.addEventListener("input", function () {
 
   totalContactsNum.textContent = tableRowsCounter;
 });
-
-// write index of each row in the data-index attribute innerHTML
-for (let i = 1; i <= tableRows; i++) {
-  table.rows[i].setAttribute("data-index", i);
-  table.rows[i].cells[0].innerHTML = i;
-}
 
 
 // stats section
