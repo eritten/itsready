@@ -33,35 +33,6 @@ for (let i = 0; i < navigationLinks.length; i++) {
   });
 }
 
-// get total number of rows of the table
-const table = document.querySelector("[data-table]");
-const tableRows = table.rows.length - 1;
-const totalContactsNum = document.querySelector("#total-contacts-num");
-// set total number of rows of the table
-totalContactsNum.textContent = tableRows;
-
-// update table when search input is changed
-const searchInput = document.querySelector("#contacts-search-bar");
-searchInput.addEventListener("input", function () {
-  const searchInputValue = this.value.toLowerCase();
-  const tableRows = table.rows.length - 1;
-  let tableRowsCounter = 0;
-
-  for (let i = 1; i <= tableRows; i++) {
-    const contactName = table.rows[i].cells[0].textContent.toLowerCase();
-    const contactPhone = table.rows[i].cells[1].textContent.toLowerCase();
-    const contactEmail = table.rows[i].cells[2].textContent.toLowerCase();
-
-    if (contactName.includes(searchInputValue) || contactPhone.includes(searchInputValue) || contactEmail.includes(searchInputValue)) {
-      table.rows[i].classList.remove("hide");
-      tableRowsCounter++;
-    } else {
-      table.rows[i].classList.add("hide");
-    }
-  }
-
-  totalContactsNum.textContent = tableRowsCounter;
-});
 
 
 // stats section
