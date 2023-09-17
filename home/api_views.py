@@ -116,3 +116,5 @@ def search_contact(request):
         # else return response as no contacts found
         else:
             return Response({"message": "No contacts found"}, status=status.HTTP_400_BAD_REQUEST)
+        
+        
