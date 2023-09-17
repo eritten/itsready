@@ -47,14 +47,14 @@ const csrf_token = '{{ csrf_token }}'
 
 window.addEventListener("load", ()=>{
     fetch(`http://localhost:8000/api/get_contacts/?userid=${userId}`).then((res) => res.json()).then((data) => {
-        const contact = data
+        const contacts = data
        // displaying all the contacts data fetched from the api 
-        contact.map((contact) => {
+        contacts.map((contact) => {
             const contactsRow = document.querySelector("#contacts-row-data")
 
             contactsRow.innerHTML += ` 
             <tr>
-                <th scope="row" data-index>${contact.id}</th>
+                <th scope="row" data-index="${contact.id}">${contact.id}</th>
                 <td class="text-capitalize">${contact.contact_name}</td>
                 <td>${contact.contact_email}</td>
                 <td>
@@ -63,11 +63,45 @@ window.addEventListener("load", ()=>{
                 <td class="d-flex">
                     <button class="btn btn-success btn-sm mr-2" data-toggle="modal" data-target="#editContact" data-index="${contact.id}"><i class="fas fa-edit"></i>  Edit</button>
 
-                    <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delContact" data-index="${contact.id}"><i class="fas fa-trash"></i>  Del</button>
+                    <button class="btn btn-danger btn-sm delete-contact" 
+                    id="del-contact-btn"
+                    data-index="${contact.id}"><i class="fas fa-trash"></i>  Del</button>
                 </td>
     
              </tr>
             `   
+        })
+        // displaying the number of contacts
+        const contactsCount = document.querySelector("#total-contacts-num")
+        contactsCount.textContent = contacts.length
+
+        // display total number of contacts in the home stats 
+        const totalNumOfContacts = document.querySelector("#total-contacts-stat-num")
+        totalNumOfContacts.textContent = contacts.length
+        
+        // delete the contact with the id of the contact being clicked to be deleted
+        const allDelContactBtns = document.querySelectorAll("#del-contact-btn")
+        
+        allDelContactBtns.forEach((delContactBtn) => {
+            delContactBtn.addEventListener("click", (e) => {
+                const contactId = e.target.dataset.index
+                const delContactBtns = document.querySelectorAll("#del-contact-btn")
+ 
+                fetch(`http://localhost:8000/api/delete_contact/?contactid=${contactId}`, {
+                    method: "DELETE",
+                    headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": csrf_token
+                    },
+                }).then((res) => res.json()).then((data) => {
+                    if(data.status === "success"){
+                        window.location.reload()
+                    }else{
+                        alert(data.message)
+
+                    }
+                })
+            })
         })
         
     })
@@ -78,7 +112,7 @@ window.addEventListener("load", ()=>{
     const addContactNum = document.querySelector("#add-contact-num")
     const addContactBtn = document.querySelector("#add-contact-submit-btn")
 
-    // on click of the add contact button add the contact to the database
+    // adding contact to the database
     addContactBtn.addEventListener("click", (e) => {
         e.preventDefault()
         const addContactNameVal = addContactName.value
@@ -99,17 +133,38 @@ window.addEventListener("load", ()=>{
             }),
         }).then((res) => res.json())
         .then((data) => {
-            //alert(data.message)
             if(data.status === "success"){
                 window.location.reload()
+            }else{
+                alert("Something went wrong, could not add contact.")
             }
         })
         
     })
 
 })
+// seaching the contacts and updating table
+const searchContact = document.querySelector("#contacts-search-bar")
+
+searchContact.addEventListener("keyup", (e) => {
+    const searchContactVal = e.target.value.toLowerCase()
+    const contactsRow = document.querySelector("#contacts-row-data")
+    const contactsRowData = contactsRow.querySelectorAll("tr")
+
+    contactsRowData.forEach((contact) => {
+        const contactName = contact.querySelector("td:nth-child(2)").textContent.toLowerCase()
+        const contactEmail = contact.querySelector("td:nth-child(3)").textContent.toLowerCase()
+        const contactNum = contact.querySelector("td:nth-child(4)").textContent.toLowerCase()
+
+        if(contactName.indexOf(searchContactVal) > -1 || contactEmail.indexOf(searchContactVal) > -1 || contactNum.indexOf(searchContactVal) > -1){
+            contact.style.display = ""
+        }else{
+            contact.style.display = "none"
+        }
+    })
+})
 
 </script>
-    <a href="tel:"></a>
+
 </body>
 </html>

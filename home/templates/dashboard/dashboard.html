@@ -22,38 +22,130 @@
       opacity: 1;
       pointer-events: all;
     }
-    .compose-sms-box {
+    .message-contact-list-wrapper {
       display: none;
-      width: clamp(100%, 60%, 70%);
+      width: 100%;
+      height: 20rem;
+      align-items: center;
       margin: 2rem auto;
       animation: fade 0.5s ease backwards;
       -webkit-animation: fade 0.5s ease backwards;
       -moz-animation: fade 0.5s ease backwards;
       -o-animation: fade 0.5s ease backwards;
 
-      & textarea {
-        width: 100%;
-        height: 10rem;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        padding: 1rem;
-        resize: none;
-        margin-bottom: 1rem;
-      }
       & button {
         width: 5rem;
         display: block;
         margin: 0 auto;
       }
+      .compose-sms-box {
+        flex: 1;
+        height: 100%;
+        padding: 1rem;
+
+        & textarea {
+        width: 100%;
+        height: 15rem;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 1rem;
+        resize: none;
+        margin-bottom: 1rem;
+
+        &::placeholder {
+          text-transform: capitalize;
+        }
+      }
+      }
+      .contact-list-box {
+        flex: 1;
+        height: 100%;
+        border-radius: 5px;
+        padding: 1rem;
+        border: 1px solid #ccc;
+
+        .heading {
+          font-size: 1.4rem;
+          text-align: center;
+          color: var(--green);
+          font-weight: bold;
+          margin-bottom: 1rem;
+        }
+        
+        .contact-list {
+          width: 100%;
+          border-radius: 5px;
+          height: 15rem;
+          overflow-y: auto;
+          padding: 0.5rem;
+
+          & li {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+            height: 4rem;
+            border: 2px solid var(--green);
+            background-color: rgba(56, 56, 56,.1);
+            border-radius: 5px;
+            padding: 0.5rem;
+            cursor: pointer;
+            transition: .4s;
+            -webkit-transition: .4s;
+            -moz-transition: .4s;
+            -ms-transition: .4s;
+            -o-transition: .4s;
+
+            &:focus-visible {
+              border: 3px solid var(--orange-yellow-crayola);
+              outline: none;
+            }
+
+            & input {
+              width: 1.5rem;
+              height: 1.5rem;
+              cursor: pointer;
+            }
+
+            &:is(:not(:last-child)) {
+              margin-bottom: .5rem;
+            }
+
+            .contact-details {
+              height: 100%;
+              padding: 0.2rem;
+              display: flex;
+              align-items: flex-start;
+              justify-content: center;
+              flex-direction: column;
+            }
+            .contact-name {
+              text-transform: capitalize;
+              font-size: 1.3rem;
+              margin-bottom: 0;
+              color: var(--green-alt);
+              font-weight: bold;
+            }
+            .contact-email {
+              font-size: 1rem;
+              text-transform: lowercase;
+              margin-bottom: 0;
+            }
+          }
+        }
+      }
     }
-    .compose-sms-box.active {
-      display: block;
+    .message-contact-list-wrapper.active {
+      display: flex;
       animation: fade 0.5s ease backwards;
       -webkit-animation: fade 0.5s ease backwards;
       -moz-animation: fade 0.5s ease backwards;
       -o-animation: fade 0.5s ease backwards;
     }
     @media (max-width: 768px) {
+      .contacts-container {
+        overflow-x: auto;
+      }
       #contacts-table {
         overflow: auto;
         max-width: 100%;
@@ -64,6 +156,45 @@
       article {
         margin-bottom: 10rem;
       }
+      /* messages tab */
+      .message-contact-list-wrapper {
+        flex-direction: column;
+        height: unset;
+
+        .compose-sms-box {
+          flex: none;
+          height: unset;
+          width: 100%;
+
+          & textarea {
+            width: 100%;
+            height: 8rem;
+            margin-bottom: 0;
+          }
+        }
+        .contact-list-box {
+          flex: none;
+          height: 15rem;
+          width: 100%;
+
+          .contact-list {
+            height: 10rem;
+
+            & input {
+              width: 1rem!important;
+              height: 1rem!important;
+            }
+            .contact-name {
+              font-size: 1.1rem!important;
+            }
+            .contact-email {
+              font-size: 0.8rem!important;
+            }
+          }
+        }
+      }
+      /* end of messages tab */
+
     }
     @media (max-width: 480px) {
       .top-bar {
@@ -124,6 +255,7 @@
           </div>
 
         </li> -->
+        
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle txt-white" href="#" id="navbarDropdown" role="button"
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -219,7 +351,7 @@
         </li>
 
         <li class="navbar-item">
-          <button class="navbar-link" data-nav-link>Another</button>
+          <button class="navbar-link" data-nav-link>Notes</button>
         </li>
 
       </ul>
@@ -284,10 +416,10 @@
       </section>
       <!-- end of stats section -->
       <!-- itsready banner box -->
-      <div class="home-banner-box container bg-green-gradient my-5 p-2 rounded shadow ">
+      <div class="home-banner-box container bg-green-gradient my-3 p-2 rounded shadow ">
         <div class="row justify-content-center flex-column align-items-center">
           <div class="col-12 col-md-6">
-            <h2 class="banner-title display-4 text-uppercase text-white text-center">Itsready</h2>
+            <h2 class="banner-title display-5 text-uppercase text-white text-center">Itsready</h2>
           </div>
           <div class="col-12">
             <p class="banner-text text-center text-white fz-xsm mxw-700 d-block mx-auto">ITSREADY is a versatile platform designed to enhance your communication experience. With ITSREADY, you can effortlessly send both SMS and voicemails to your saved contacts, all within one streamlined interface. Whether you need to deliver quick text messages or expressive voicemails, ITSREADY ensures that your messages reach your intended recipients without hassle. Say goodbye to juggling multiple platforms – ITSREADY simplifies your communication by bringing SMS and voicemails together for your convenience.</p>
@@ -340,7 +472,7 @@
                 <h5 class="card-title text-success">
                   <i class="fas fa-sms"></i>
                   Send messages to agents</h5>
-                <h6 class="card-subtitle mb-2 text-muted">Via sms</h6>
+                <h6 class="card-subtitle mb-2 text-muted">Via SMS</h6>
                 <p class="card-text fz-xsm">"ITSREADY" enables you to effortlessly send SMS to your agents by saving their contacts on the designated webpage's contacts tab. Stay connected seamlessly!</p>
               </div>
             </div>
@@ -358,13 +490,129 @@
         <h2 class="h2 article-title">Messages</h2>
       </header>
       <!-- messages tab body -->
-      <!-- compose message  -->
-      <button class="btn btn-success my-3 compose-sms-reveal-btn">Compose sms</button>
 
-      <div class="compose-sms-box" role="alert" aria-label="compse message here">
-        <textarea placeholder="compse message here"></textarea>
-        <button class="btn btn-success" data-target="#sendMessage" data-toggle="modal">Send</button>
+      <style>
+        .select-all-contacts-box {
+          & label {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--green);
+            cursor: pointer;
+          }
+        }
+      </style>
+      <!-- compose message  -->
+      <button class="btn btn-success my-3 compose-sms-reveal-btn">Compose SMS</button>
+
+      <div class="message-contact-list-wrapper">
+        <div class="compose-sms-box" role="alert" aria-label="compose message here">
+          <textarea placeholder="compose message here"></textarea>
+          <button class="btn btn-success" data-target="#sendMessage" data-toggle="modal">Send</button>
+        </div>
+        <div class="contact-list-box">
+          <h4 class="heading">Select SMS contact here:</h4>
+          <form action="#n">
+            <div class="col-auto">
+              <div class="input-pgroup mb-2">
+                <input type="text" class="form-control" id="seach-contact-list" placeholder="Search name/email/number">
+              </div>
+            </div>
+          </form>
+          <!--  select all contacts  checkbox -->
+          <div class="select-all-contacts-box">
+            <input type="checkbox" id="select-all-contacts" aria-label="select all contacts">
+            <label for="select-all-contacts">Select all contacts</label>
+          </div>
+          <ul class="contact-list" id="contact-list">
+            
+          </ul>
+        </div>
       </div>
+      <script>
+        // updating the contact list when searching
+        const contactSearchInput = document.querySelector("#seach-contact-list")
+
+        contactSearchInput.addEventListener("keyup", (e)=>{
+          const contactSearchVal = e.target.value.toLowerCase()
+          const contactListParent = document.querySelector("#contact-list")
+          const contactListChildren = contactListParent.querySelectorAll("li")
+
+          contactListChildren.forEach(contact =>{
+            const name = contact.querySelector(".contact-name").textContent.toLowerCase()
+            const num = contact.querySelector(".contact-num").textContent.toLowerCase()
+            const email = contact.querySelector(".contact-email").textContent.toLowerCase()
+
+            if(name.indexOf(contactSearchVal) > -1 || num.indexOf(contactSearchVal) > -1 || email.indexOf(contactSearchVal) > -1){
+              contact.style.display = ""
+            }
+            else {
+              contact.style.display = "none"
+            }
+          })
+        })
+
+        // fetching contacts from data 
+        window.addEventListener("load", ()=>{
+          fetch(`http://localhost:8000/api/get_contacts/?userid=${userId}`).then((res) => res.json()).then((data) => {
+            const contacts = data
+            const contactsListUl = document.querySelector("#contact-list")
+            
+            contacts.map(contact =>{
+              contactsListUl.innerHTML += `
+              <li tabindex="0" data-index="${contact.id}">
+                <input type="checkbox" aria-label="contact name: ${contact.contact_name}, email: ${contact.contact_email}">
+                <div class="contact-details">
+                  <h4 class="contact-name">${contact.contact_name}</h4>
+                  <p class="contact-num" style="font-size: .2rem; margin: 0; padding: 0; visibility: hidden;">${contact.contact_phone_number}</p>
+                  <p class="contact-email">${contact.contact_email}</p>
+                </div>
+              </li>
+              `
+            })
+        //checking each contact list when clicked
+            const allLists = contactsListUl.querySelectorAll("li")
+            
+            allLists.forEach(person =>{
+              person.addEventListener("click", ()=>{
+                const checkbox = person.querySelector("input")
+                person.classList.toggle("checked")
+
+                if(person.classList.contains("checked")) {
+                  person.style.background = "rgba(130, 246, 153,.4)"
+                  checkbox.checked = true
+                }
+                else {
+                  person.style.background = "none"
+                  checkbox.checked = false
+                }
+              })
+            })
+
+            // selecting all contacts when select all checkbox is clicked
+            const selectAllContacts = document.querySelector("#select-all-contacts")
+            const allContacts = document.querySelectorAll("#contact-list li")
+
+            selectAllContacts.addEventListener("click", ()=>{
+              if(selectAllContacts.checked) {
+                allContacts.forEach(contact =>{
+                  contact.classList.add("checked")
+                  contact.style.background = "rgba(130, 246, 153,.4)"
+                  contact.querySelector("input").checked = true
+                })
+              }
+              else {
+                allContacts.forEach(contact =>{
+                  contact.classList.remove("checked")
+                  contact.style.background = "none"
+                  contact.querySelector("input").checked = false
+                })
+              }
+            })
+
+          })
+        })
+
+      </script>
       <!-- end of compose message  -->
       <!-- end of tab messages body -->
 
@@ -376,6 +624,78 @@
         <h2 class="h2 article-title">History</h2>
       </header>
 
+      <!-- history tabs -->
+      <style>
+        .history-box {
+          max-width: 30rem!important;
+        }
+        .sms-history-msg {
+          height: 6rem;
+          padding: 0.2rem;
+          overflow-y: auto;
+          font-size: 1rem!important;
+        }
+      </style>
+      <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+          <a class="nav-item nav-link active text-success" id="nav-sms-tab" data-toggle="tab" href="#nav-sms" role="tab" aria-controls="nav-sms" aria-selected="true">SMS</a>
+          <a class="nav-item nav-link text-success" id="nav-vm-tab" data-toggle="tab" href="#nav-voicemail" role="tab" aria-controls="nav-voicemail" aria-selected="false">Voicemail</a>
+        </div>
+      </nav>
+      <div class="tab-content p-3" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-sms" role="tabpanel" aria-labelledby="nav-sms-tab">
+          <!-- sms history box -->
+          <div class="jumbotron p-2 mb-2 history-box">
+            <h4 class="text-success">Felix</h4>
+            <h5 class="lead sms-history-msg">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut consequatur earum laudantium illum qui, eos provident aspernatur odio quibusdam rerum debitis consectetur atque architecto recusandae hic dolor voluptate asperiores reprehenderit?</h5>
+            <hr class="my-1">
+            <h6 class="text-primary text-lowercase">feboapong@gmail.com</h6>
+          </div>
+          <!-- end of sms history box -->
+          <!-- sms history box -->
+          <div class="jumbotron p-2 mb-2 history-box">
+            <h4 class="text-success">Felix</h4>
+            <h5 class="lead sms-history-msg">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut consequatur earum laudantium illum qui, eos provident aspernatur odio quibusdam rerum debitis consectetur atque architecto recusandae hic dolor voluptate asperiores reprehenderit?</h5>
+            <hr class="my-1">
+            <h6 class="text-primary text-lowercase">feboapong@gmail.com</h6>
+          </div>
+          <!-- end of sms history box -->
+          <!-- sms history box -->
+          <div class="jumbotron p-2 mb-2 history-box">
+            <h4 class="text-success">Felix</h4>
+            <h5 class="lead sms-history-msg">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut consequatur earum laudantium illum qui, eos provident aspernatur odio quibusdam rerum debitis consectetur atque architecto recusandae hic dolor voluptate asperiores reprehenderit?</h5>
+            <hr class="my-1">
+            <h6 class="text-primary text-lowercase">feboapong@gmail.com</h6>
+          </div>
+          <!-- end of sms history box -->
+          <!-- sms history box -->
+          <div class="jumbotron p-2 mb-2 history-box">
+            <h4 class="text-success">Felix</h4>
+            <h5 class="lead sms-history-msg">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut consequatur earum laudantium illum qui, eos provident aspernatur odio quibusdam rerum debitis consectetur atque architecto recusandae hic dolor voluptate asperiores reprehenderit?</h5>
+            <hr class="my-1">
+            <h6 class="text-primary text-lowercase">feboapong@gmail.com</h6>
+          </div>
+          <!-- end of sms history box -->
+          <!-- sms history box -->
+          <div class="jumbotron p-2 mb-2 history-box">
+            <h4 class="text-success">Felix</h4>
+            <h5 class="lead sms-history-msg">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut consequatur earum laudantium illum qui, eos provident aspernatur odio quibusdam rerum debitis consectetur atque architecto recusandae hic dolor voluptate asperiores reprehenderit?</h5>
+            <hr class="my-1">
+            <h6 class="text-primary text-lowercase">feboapong@gmail.com</h6>
+          </div>
+          <!-- end of sms history box -->
+          <!-- sms history box -->
+          <div class="jumbotron p-2 mb-2 history-box">
+            <h4 class="text-success">Felix</h4>
+            <h5 class="lead sms-history-msg">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut consequatur earum laudantium illum qui, eos provident aspernatur odio quibusdam rerum debitis consectetur atque architecto recusandae hic dolor voluptate asperiores reprehenderit?</h5>
+            <hr class="my-1">
+            <h6 class="text-primary text-lowercase">feboapong@gmail.com</h6>
+          </div>
+          <!-- end of sms history box -->
+        </div>
+        <div class="tab-pane fade" id="nav-voicemail" role="tabpanel" aria-labelledby="nav-vm-tab">vm</div>
+      </div>
+      <!-- history tabs -->
 
     </article>
     <!--
@@ -399,9 +719,10 @@
           <form action="#n">
             <div class="col-auto">
               <div class="input-group mb-2">
-                <input type="search" class="form-control-lg" id="contacts-search-bar" placeholder="Search name / email">
+                <input type="text" class="form-control-lg" id="contacts-search-bar" placeholder="Search name/email/number">
               </div>
             </div>
+          </form>
         </div>
         <table class="table" id="contacts-table" data-table>
           <thead>
@@ -426,11 +747,304 @@
     </article>
 
     <!-- #CONTACT -->
-    <article class="contact" data-page="another">
+    <article class="notes" data-page="notes">
       <header>
-        <h2 class="h2 article-title">Another</h2>
+        <h2 class="h2 article-title">Notes</h2>
       </header>
 
+      <style>
+        /* notes styles */
+        .notes-box {
+          width: 100%;
+          max-width: 40rem;
+          height: max-content;
+
+          .title {
+            text-transform: uppercase;
+            font-size: 1.5rem!important;
+            color: var(--green);
+            margin-bottom: .5rem;
+          }
+          & form {
+            display: block;
+            margin: 0 auto;
+            width: 70%!important;
+            height: 3rem!important;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+
+            & input[type="text"] {
+              width: 100%!important;
+              flex: 5;
+              padding: 0.5rem;
+              font-family: inherit;
+              font-size: 1rem!important;
+            }
+            & input[type="submit"] {
+              flex: 1;
+            }
+          }
+          .notes-list {
+            width: 100%;
+            padding: 0.5rem;
+            position: relative;
+
+            .clear-notes-btn {
+              position: absolute;
+              bottom: 100%;
+              left: 101%;
+              white-space: nowrap;
+              visibility: hidden;
+
+              &.active {
+                visibility: visible;
+              }
+            }
+            & li {
+              width: 100%;
+              height: 8rem;
+              box-shadow: var(--shadow-1);
+              padding: 0.5rem;
+              display: flex;
+              align-items: center;
+              gap: 1rem;
+              overflow: hidden;
+              border-radius: 10px;
+              background-color: var(--white-2);
+              margin-bottom: .8rem;
+
+              .content-box {
+                flex: 4;
+                height: 100%;
+                overflow-y: auto;
+                padding: 0.5rem;
+
+                & p {
+                  font-size: 1.1rem!important;
+                  margin: 0!important;
+                  padding: 0!important;
+                }
+                &::-webkit-scrollbar {
+                  width: 6px!important;
+                }
+              }
+              .action-box {
+                flex: 1;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: .5rem;
+              }
+            }
+          }
+        }
+        button svg {
+          pointer-events: none;
+        }
+      </style>
+      <!-- notes container -->
+      <div class=" d-flex justify-content-center align-items-center">
+        <div class="notes-box p-2">
+          <h2 class="text-center title mb-0">Notebook</h2>
+          <p class="text-center mb-1">Write short notes to keep records.</p>
+          <form action="#n" class="my-0" id="enter-notes-form">
+            <input type="text" class="" id="enter-notes" placeholder="Enter note eg. sales record">
+            <input type="submit" class="btn btn-primary notes-submit-btn" value="Add note">
+          </form>
+          <p class="text-center text-capitalize text-white" id="alert-msg" role="alert"></p>
+          <ul class="notes-list">
+            <button class="btn btn-secondary clear-notes-btn" data-toggle="modal" data-target="#confirm-clear-notes">Clear notes</button>
+          </ul>
+        </div>
+      </div>
+      <!-- end of notes container -->
+      <script>
+        // notes section
+        const notesForm = document.querySelector("#enter-notes-form")
+        const notesList = document.querySelector(".notes-list")
+        const clearBtn = document.querySelector(".clear-notes-btn")
+        const clearNotesBtn = document.querySelector("#confirm-clear-notes-btn")
+        const noteSubmitBtn = document.querySelector(".notes-submit-btn")
+        const notesInput = document.querySelector("#enter-notes")
+        const alertMsg = document.querySelector("#alert-msg")
+
+        // event listeners
+        notesForm.addEventListener("submit", addNote)
+        // load notes from the local storage
+        window.addEventListener("DOMContentLoaded", setupNotes)
+
+        // edit option
+        let editgNoteEl
+        let isEdit = false
+        let editId = ""
+
+        // functions=================
+        // add note
+        function addNote(e){
+          e.preventDefault()
+          let noteInputVal = notesInput.value
+          const id = new Date().getTime().toString()
+          // add item when value is not empty and isedit is false
+          if(noteInputVal && !isEdit){
+            createNotesItems(id, noteInputVal)
+            displayAlert("note added!", "bg-success")
+            clearBtn.classList.add("active")
+            // add to local storage
+            addToLocalStorage(id, noteInputVal)
+            reset()
+          }
+          else if (noteInputVal && isEdit) {
+            editgNoteEl.textContent = noteInputVal
+            displayAlert("note changed", "bg-success")
+            // edit local storage
+            let specialId = editId
+            editLocalStorage(specialId, noteInputVal)
+            reset()
+            
+          }
+          else {
+            displayAlert("please enter note!", "bg-danger")
+          }
+          
+        }
+        // display alert function
+        function displayAlert(text, bgcolor){
+          alertMsg.textContent = text
+          alertMsg.classList.add(bgcolor)
+          // remove alert after 1.5 seconds
+          setTimeout(()=>{
+            alertMsg.textContent = ""
+            alertMsg.classList.remove(bgcolor)
+          }, 1500)
+        }
+        // clearing all notes
+        function clearNotes(){
+          const allNotes = document.querySelectorAll(".notes-list li")
+          
+          if(allNotes.length > 0){
+            allNotes.forEach(note =>{
+              notesList.removeChild(note)
+            })
+          }
+          clearBtn.classList.remove("active")
+          displayAlert("empty note list!", "bg-danger")
+          localStorage.removeItem("notes")
+        } 
+        // reset function
+        function reset(){
+          notesInput.value = ""
+          editId = ""
+          isEdit = false
+          noteSubmitBtn.value = "Add note"
+        }
+        // local storage ============
+        // add to local storage
+        function addToLocalStorage(id, value){
+          const notes = {id, value}
+          // if there is an item in the local storage get it, else set it to empty array
+          let noteItems = getLocalStorage()
+          noteItems.push(notes)
+
+          localStorage.setItem("notes", JSON.stringify(noteItems))
+        }
+        // remove from local storage
+        function removeFromLocalStorage(id){
+          let noteItems = getLocalStorage()
+
+          noteItems = noteItems.filter(noteItem =>{
+            if (noteItem.id !== id){
+              return noteItem
+            }
+          })
+          localStorage.setItem("notes", JSON.stringify(noteItems))
+        }
+        // edit local storage
+        function editLocalStorage(id, value){
+          let noteItems = getLocalStorage()
+          noteItems = noteItems.map(noteItem =>{
+            if(noteItem.id === id){
+              noteItem.value = value
+              
+            }
+            return noteItem
+          })
+          localStorage.setItem("notes", JSON.stringify(noteItems))
+        }
+        // get localstorage
+        function getLocalStorage(){
+          return  localStorage.getItem("notes") ? JSON.parse(localStorage.getItem("notes")): []
+        }
+        // edit function
+        function editNote(e){
+          const thisNote = e.target.parentElement.parentElement   
+          editId = thisNote.dataset.id
+          
+          let specialId = editId
+          // set edit note text
+          editgNoteEl = e.target.parentElement.previousElementSibling
+          // set form value
+          notesInput.focus()
+          notesInput.value = editgNoteEl.textContent.trim() + " "
+          isEdit = true
+          noteSubmitBtn.value = "Edit note"
+        }
+        // delete function
+        function delNote(e){
+          const thisNote = e.target.parentElement.parentElement 
+          notesList.removeChild(thisNote)
+          const id = thisNote.dataset.id
+
+          if(notesList.children.length === 1) {
+            clearBtn.classList.remove("active")
+          }
+          displayAlert("note removed", "bg-warning")
+          reset()
+          // remove from localstorage
+          removeFromLocalStorage(id)
+        }
+        // setup notes
+        function setupNotes(){
+          let noteItems = getLocalStorage()
+          if(noteItems.length > 0){
+            noteItems.forEach(noteItem =>{
+              createNotesItems(noteItem.id, noteItem.value)
+            })
+            clearBtn.classList.add("active")
+          }
+        }
+        // create note lists for local storage
+        function createNotesItems(id, value){
+              // create new li and append to notes list
+            const newNote = document.createElement("li")
+            const idAttr = document.createAttribute("data-id")
+            idAttr.value = id
+            newNote.setAttributeNode(idAttr)
+            newNote.setAttribute("tabindex", 0)
+            newNote.innerHTML = `
+            <div class="content-box">
+                <p class="text-capitalize">${value}</p>
+              </div>
+              <div class="action-box">
+                <button class="btn btn-primary edit-note-btn" aria-label="edit button">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="btn btn-danger del-note-btn" aria-label="delete button">
+                  <i class="fas fa-trash"></i>
+                </button>
+            </div>
+            `
+            // edit & delete event listeners
+            const delBtn = newNote.querySelector(".del-note-btn")
+            const editBtn = newNote.querySelector(".edit-note-btn")
+            
+            delBtn.addEventListener("click", delNote)
+            editBtn.addEventListener("click", editNote)
+            notesList.appendChild(newNote)
+        }
+      </script>
     </article>
 
   </div>
@@ -439,6 +1053,24 @@
 <!-- end of main container -->
 
 <!-- ===================modal popups======== -->
+<!-- modal popup for clear notes -->
+<div class="modal fade" id="confirm-clear-notes" tabindex="-1" role="dialog" aria-labelledby="confirm-clear-notesLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="logoutLabel">Are you sure you want to clear all notes?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" id="confirm-clear-notes-btn" onclick="clearNotes()" data-dismiss="modal">Clear notes</button>
+        <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end of modal popup for logout -->
 <!-- modal popup for logout -->
 <div class="modal fade" id="logout" tabindex="-1" role="dialog" aria-labelledby="logoutLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -499,7 +1131,7 @@
             <input type="email" class="form-control" id="add-contact-email" placeholder="Contact email" required>
           </div>
           <div class="form-group">
-            <label for="add-contact-num">Number</label>
+            <label for="add-contact-num">Phone Number</label>
             <input type="number" class="form-control" id="add-contact-num" placeholder="Contact number (add country code)" required>
           </div>
         </form>
@@ -597,9 +1229,10 @@
 <script>
   const composeSmsRevealBtn = document.querySelector('.compose-sms-reveal-btn');
 
-  // add active class to compose sms box when compose sms button is clicked
+  // adding active class to message-contact-list-wrapper
   composeSmsRevealBtn.addEventListener('click', () => {
-    document.querySelector('.compose-sms-box').classList.toggle('active');
+    document.querySelector('.message-contact-list-wrapper').classList.toggle('active');
   });
+
 </script>
 {% endblock %}

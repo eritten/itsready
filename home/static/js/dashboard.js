@@ -38,11 +38,6 @@ for (let i = 0; i < navigationLinks.length; i++) {
 // stats section
 const totalContactsStatNum = document.querySelector("#total-contacts-stat-num");
 
-// set total number of contacts every 1 second
-setInterval(function () {
-  totalContactsStatNum.textContent = table.rows.length - 1;
-}, 1000);
-
 // scroll to top button
 const scrollToTopBtn = document.querySelector("[data-scroll-top-btn]");
 // add active class to scroll to top button when scrolling
