@@ -45,7 +45,7 @@ const csrf_token = '{{ csrf_token }}'
 
 
 window.addEventListener("load", ()=>{
-    fetch(`http://localhost:8000/api/get_contacts/?userid=${userId}`).then((res) => res.json()).then((data) => {
+    fetch("https://" + location.host + "/api/get_contacts/" + "?userid=" + userId).then((res) => res.json()).then((data) => {
         const contacts = data
        // displaying all the contacts data fetched from the api 
         contacts.map((contact) => {
@@ -118,7 +118,7 @@ window.addEventListener("load", ()=>{
         const addContactEmailVal = addContactEmail.value
         const addContactNumVal = addContactNum.value
 
-        fetch("http://localhost:8000/api/add_contact/", {
+        fetch("https://" + location.host + "/api/add_contact/", {
            method: "POST",
             headers: {
             "Content-Type": "application/json",
@@ -163,6 +163,7 @@ searchContact.addEventListener("keyup", (e) => {
     })
 })
 
+alert("https://" + location.host + "/")
 </script>
 
 </body>
