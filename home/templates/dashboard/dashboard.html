@@ -42,7 +42,29 @@
         flex: 1;
         height: 100%;
         padding: 1rem;
+        position: relative;
 
+        .compose-voicemail-box {
+          display: none;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+
+          &.active {
+            display: block;
+          }
+          & textarea {
+            width: 100%;
+            height: 15rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 1rem;
+            resize: none;
+            margin-bottom: 1rem;
+      }
+        }
         & textarea {
         width: 100%;
         height: 15rem;
@@ -51,10 +73,6 @@
         padding: 1rem;
         resize: none;
         margin-bottom: 1rem;
-
-        &::placeholder {
-          text-transform: capitalize;
-        }
       }
       }
       .contact-list-box {
@@ -500,17 +518,120 @@
             cursor: pointer;
           }
         }
+        /*  style the template-messages-wrapper */
+        .template-messages-wrapper {
+          visibility: hidden;
+          opacity: 0;
+          width: 100%;
+          align-items: center;
+          animation: fade 0.5s ease backwards;
+          -webkit-animation: fade 0.5s ease backwards;
+          -moz-animation: fade 0.5s ease backwards;
+          -o-animation: fade 0.5s ease backwards;
+
+          &.active {
+            visibility: visible;
+            opacity: 1;
+            animation: fade 0.5s ease backwards;
+            -webkit-animation: fade 0.5s ease backwards;
+            -moz-animation: fade 0.5s ease backwards;
+            -o-animation: fade 0.5s ease backwards;
+          }
+
+          & h4 {
+            font-size: 1.2rem!important;
+            text-align: center;
+            color: var(--green);
+            font-weight: bold;
+          }
+          & ul {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: .5rem;
+            width: 100%;
+            overflow-y: auto;
+            padding: 0.5rem;
+
+            & li {
+              /* width: 100%; */
+              display: flex;
+              align-items: center;
+              gap: .5rem;
+              height: 4rem;
+              padding: 0.5rem;
+              border: 2px solid var(--green);
+              background-color: rgba(56, 56, 56,.1);
+              border-radius: 5px;
+              padding: 0.5rem;
+              cursor: pointer;
+              display: -webkit-box;
+              -webkit-line-clamp: 2;
+              -webkit-box-orient: vertical;
+              overflow: hidden;
+              font-size: 1.1rem!important;
+              transition: .4s;
+              -webkit-transition: .4s;
+              -moz-transition: .4s;
+              -ms-transition: .4s;
+              -o-transition: .4s;
+
+              &:focus-visible {
+                border: 3px solid var(--orange-yellow-crayola);
+                outline: none;
+              }
+              &:hover {
+                background-color: rgba(130, 246, 153,.4);
+              } 
+
+              & input {
+                width: 1rem;
+                height: 1rem;
+                cursor: pointer;
+              }
+            }
+
+          }
+        }
+        /*  end of  the template-messages-wrapper */
+        .template-messages-wrapper.go {
+          display: none;
+        }
       </style>
       <!-- compose message  -->
       <button class="btn btn-success my-3 compose-sms-reveal-btn">Compose SMS</button>
+      <button class="btn btn-success my-3 compose-voicemail-reveal-btn">Compose Voicemail</button>
+      <!-- template message wrapper -->
+      <div class="template-messages-wrapper">
+        <h4 class="heading">Select template message here:</h4>
+        <ul class="template-messages-list">
+          <!-- <!-- create template-message lists with class template-me -->
+          <li tabindex="0" class="template-message" data-template-message="hello, how are you doing?">hello, how are you doing?</li>
+          <li tabindex="0" class="template-message" data-template-message="Please your order is ready for pickup">Please your order is ready for pickup.</li>
+          <li tabindex="0" class="template-message" data-template-message="How are you doing?">How are you doing?</li>
+          <li tabindex="0" class="template-message" data-template-message="Have a nice day?">Have a nice day</li>
+          <li tabindex="0" class="template-message" data-template-message="thank you for your order!">thank you for your order!</li>
+          <li tabindex="0" class="template-message" data-template-message="We are sorry for the delay today.">We are sorry for the delay today.</li>
+          <li tabindex="0" class="template-message" data-template-message="We hope to see you again.">We hope to see you again.</li>
 
+
+        </ul>
+      </div>
+      <!--  end of template messages  -->
+      <!-- message contact list wrapper -->
       <div class="message-contact-list-wrapper">
         <div class="compose-sms-box" role="alert" aria-label="compose message here">
-          <textarea placeholder="compose message here"></textarea>
-          <button class="btn btn-success" data-target="#sendMessage" data-toggle="modal">Send</button>
+          <input type="number" class="form-control" placeholder="Enter number">
+          <textarea placeholder="compose message here" id="compose-sms-textarea"></textarea>
+          <button class="btn btn-success" data-target="#sendMessage" data-toggle="modal" id="sendMessage-btn">Send</button>
+
+          <div class="compose-voicemail-box" role="alert" aria-label="compose voicemail here">
+          <input type="number" class="form-control" placeholder="Enter number">
+            <textarea placeholder="compose voicemail here" id="compose-voicemail-textarea"></textarea>
+            <button class="btn btn-success" data-target="#sendMessage" data-toggle="modal">Send</button>
+          </div>
         </div>
         <div class="contact-list-box">
-          <h4 class="heading">Select SMS contact here:</h4>
+          <h4 class="heading">Select contact here:</h4>
           <form action="#n">
             <div class="col-auto">
               <div class="input-pgroup mb-2">
@@ -528,6 +649,7 @@
           </ul>
         </div>
       </div>
+      <!-- end of message contact list wrapper -->
       <script>
         // updating the contact list when searching
         const contactSearchInput = document.querySelector("#seach-contact-list")
@@ -588,7 +710,7 @@
               })
             })
 
-            // selecting all contacts when select all checkbox is clicked
+            // selecting all contacts when select all checkbox is checked
             const selectAllContacts = document.querySelector("#select-all-contacts")
             const allContacts = document.querySelectorAll("#contact-list li")
 
@@ -611,7 +733,16 @@
 
           })
         })
+        // template message
+        const templateMessages = document.querySelectorAll(".template-message")
+        const composeSmsBox = document.querySelector(".compose-sms-box textarea")
 
+        templateMessages.forEach(message =>{
+          message.addEventListener("click", ()=>{
+            composeSmsBox.value = message.dataset.templateMessage
+            composeSmsBox.focus()
+          })
+        })
       </script>
       <!-- end of compose message  -->
       <!-- end of tab messages body -->
@@ -1228,11 +1359,34 @@
 
 <script>
   const composeSmsRevealBtn = document.querySelector('.compose-sms-reveal-btn');
+  const textbox = document.querySelector("#compose-sms-textarea")
+  const composeVmrevealBtn = document.querySelector(".compose-voicemail-reveal-btn")
+  const compVmBx = document.querySelector(".compose-voicemail-box")
+  const compSmsBx = document.querySelector(".compose-sms-box #compose-sms-textarea")
+  const compSmsBxBtn = document.querySelector(".compose-sms-box #sendMessage-btn")
+  const vmTextBox = document.querySelector("#compose-voicemail-textarea")
 
   // adding active class to message-contact-list-wrapper
   composeSmsRevealBtn.addEventListener('click', () => {
-    document.querySelector('.message-contact-list-wrapper').classList.toggle('active');
+    document.querySelector('.message-contact-list-wrapper').classList.add('active');
+    // adding active class to template-messages-wrapper
+    document.querySelector('.template-messages-wrapper').classList.add('active');
+    document.querySelector('.template-messages-wrapper').classList.remove('go');
+    compSmsBx.style = "visibility: visible;"
+    compSmsBxBtn.style = "visibility: visible;"
+    compVmBx.classList.remove("active")
+    textbox.focus()
   });
 
+
+ // adding active class to voicemail-contact-list-wrapper
+ composeVmrevealBtn.addEventListener('click', () => {
+  document.querySelector('.template-messages-wrapper').classList.add('go');
+    document.querySelector('.message-contact-list-wrapper').classList.add('active');
+    compSmsBx.style = "visibility: hidden;"
+    compSmsBxBtn.style = "visibility: hidden;"
+    compVmBx.classList.add("active")
+    vmTextBox.focus()
+  });
 </script>
 {% endblock %}
