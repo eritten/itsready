@@ -42,6 +42,7 @@ class Contact(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     contact_name = models.CharField(max_length=100, blank=True)
     contact_phone_number = models.CharField(max_length=100, blank=True)
+    description = models.TextField(blank=True)
     contact_email = models.CharField(max_length=100, blank=True)
     date = models.DateTimeField(default=timezone.now)
     def __str__(self):

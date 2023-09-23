@@ -353,7 +353,7 @@
       <ul class="navbar-list">
 
         <li class="navbar-item">
-          <button class="navbar-link  active" data-nav-link>Home</button>
+          <button class="navbar-link  active" data-nav-link>Dashboard</button>
         </li>
 
         <li class="navbar-item">
@@ -390,7 +390,7 @@
         <!-- start -->
         <div class="stat-box" tabindex="0">
           <div class="content-box">
-            <h3 class="stat-title">Total contacts</h3>
+            <h3 class="stat-title">Total Contacts</h3>
             <p class="stat-number" id="total-contacts-stat-num"></p>
           </div>
           <div class="icon-box">
@@ -401,7 +401,7 @@
         <!-- start -->
         <div class="stat-box" tabindex="0">
           <div class="content-box">
-            <h3 class="stat-title">Total sms sent</h3>
+            <h3 class="stat-title">Total SMS Sent</h3>
             <p class="stat-number">1,200</p>
           </div>
           <div class="icon-box">
@@ -412,7 +412,7 @@
         <!-- start -->
         <div class="stat-box" tabindex="0">
           <div class="content-box">
-            <h3 class="stat-title">Total voicemails</h3>
+            <h3 class="stat-title">Total Voicemails</h3>
             <p class="stat-number">1,200</p>
           </div>
           <div class="icon-box">
@@ -602,7 +602,7 @@
       <button class="btn btn-success my-3 compose-voicemail-reveal-btn">Compose Voicemail</button>
       <!-- template message wrapper -->
       <div class="template-messages-wrapper">
-        <h4 class="heading">Select template message here:</h4>
+        <h4 class="heading">Select message template here:</h4>
         <ul class="template-messages-list">
           <!-- <!-- create template-message lists with class template-me -->
           <li tabindex="0" class="template-message" data-template-message="hello, how are you doing?">hello, how are you doing?</li>
@@ -675,7 +675,7 @@
 
         // fetching contacts from data 
         window.addEventListener("load", ()=>{
-          fetch(`http://localhost:8000/api/get_contacts/?userid=${userId}`).then((res) => res.json()).then((data) => {
+          fetch("http://" + location.host +  "/api/get_contacts/?userid=" + userId).then((res) => res.json()).then((data) => {
             const contacts = data
             const contactsListUl = document.querySelector("#contact-list")
             
@@ -980,7 +980,7 @@
       <div class=" d-flex justify-content-center align-items-center">
         <div class="notes-box p-2">
           <h2 class="text-center title mb-0">Notebook</h2>
-          <p class="text-center mb-1">Write short notes to keep records.</p>
+          <p class="text-center mb-1">Short notes for your records.</p>
           <form action="#n" class="my-0" id="enter-notes-form">
             <input type="text" class="" id="enter-notes" placeholder="Enter note eg. sales record">
             <input type="submit" class="btn btn-primary notes-submit-btn" value="Add note">
