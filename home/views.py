@@ -65,3 +65,9 @@ def dashboard(request):
     return render(request,"dashboard/dashboard.html")
 
 
+
+def privacy(request):
+    return render(request, "home/privacy.html")
+
+def terms(request):
+    return render(request, "home/terms.html")
