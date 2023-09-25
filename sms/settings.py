@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-hkf(3+p&v%td0@_6!_g$--$8xlijawenrdrt4ikcwxtwn-fnz)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 ALLOWED_HOSTS = ["*"]
 
 
@@ -134,3 +134,13 @@ LOGIN_URL = "/users/login/"
 LOGIN_REDIRECT_URL = "/dashboard/"
 LOGOUT_URL = "/users/logout/"
 # LOGOUT_REDIRECT_URL = "/account/logout/"
+
+# email settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'mail.niveel.com'
+EMAIL_HOST_USER = 'adm@niveel.com'
+EMAIL_HOST_PASSWORD = '!Store526$'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'adm@niveel.com'
+
