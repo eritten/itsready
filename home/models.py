@@ -23,6 +23,7 @@ class CreditCard(models.Model):
     card_holder_name = models.CharField(max_length=100, blank=True)
     expiration_date = models.CharField(max_length=100, blank=True)
     cvv = models.CharField(max_length=100, blank=True)
+    is_active = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user.username
@@ -42,6 +43,7 @@ class Contact(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     contact_name = models.CharField(max_length=100, blank=True)
     contact_phone_number = models.CharField(max_length=100, blank=True)
+    description = models.TextField(blank=True)
     contact_email = models.CharField(max_length=100, blank=True)
     date = models.DateTimeField(default=timezone.now)
     def __str__(self):

@@ -285,20 +285,17 @@
           <a class="nav-link dropdown-toggle txt-white" href="#" id="navbarDropdown" role="button"
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-cog"></i>
-            settings
+            Settings
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a href="#n" class="dropdown-item text-success logout-link">
-              change password
+            <a href="{% url 'password_change' %}" class="dropdown-item text-success logout-link">
+              Change Password
             </a>
             <a href="#n" class="dropdown-item text-success logout-link">
-              change password
+              Update Profile
             </a>
             <a href="#n" class="dropdown-item text-success logout-link">
-              change password
-            </a>
-            <a href="#n" class="dropdown-item text-success logout-link">
-              change password
+              Update Payment Information
             </a>
           </div>
         </li>
@@ -346,7 +343,7 @@
       <ul class="navbar-list">
 
         <li class="navbar-item">
-          <button class="navbar-link  active" data-nav-link>Home</button>
+          <button class="navbar-link  active" data-nav-link>Dashboard</button>
         </li>
 
         <li class="navbar-item">
@@ -383,7 +380,7 @@
         <!-- start -->
         <div class="stat-box" tabindex="0">
           <div class="content-box">
-            <h3 class="stat-title">Total contacts</h3>
+            <h3 class="stat-title">Total Contacts</h3>
             <p class="stat-number" id="total-contacts-stat-num"></p>
           </div>
           <div class="icon-box">
@@ -394,7 +391,7 @@
         <!-- start -->
         <div class="stat-box" tabindex="0">
           <div class="content-box">
-            <h3 class="stat-title">Total sms sent</h3>
+            <h3 class="stat-title">Total SMS Sent</h3>
             <p class="stat-number">1,200</p>
           </div>
           <div class="icon-box">
@@ -405,7 +402,7 @@
         <!-- start -->
         <div class="stat-box" tabindex="0">
           <div class="content-box">
-            <h3 class="stat-title">Total voicemails</h3>
+            <h3 class="stat-title">Total Voicemails</h3>
             <p class="stat-number">1,200</p>
           </div>
           <div class="icon-box">
@@ -422,7 +419,9 @@
             <h2 class="banner-title display-5 text-uppercase text-white text-center">Itsready</h2>
           </div>
           <div class="col-12">
-            <p class="banner-text text-center text-white fz-xsm mxw-700 d-block mx-auto">ITSREADY is a versatile platform designed to enhance your communication experience. With ITSREADY, you can effortlessly send both SMS and voicemails to your saved contacts, all within one streamlined interface. Whether you need to deliver quick text messages or expressive voicemails, ITSREADY ensures that your messages reach your intended recipients without hassle. Say goodbye to juggling multiple platforms – ITSREADY simplifies your communication by bringing SMS and voicemails together for your convenience.</p>
+            <p class="banner-text text-center text-white fz-xsm mxw-700 d-block mx-auto">
+Itsready is a versatile communication platform designed to enhance your customer service experience. You can effortlessly send both SMS and Voicemails to your clients contacts, all in one streamlined interface. Whether you need to deliver quick text messages or expressive voicemails, Itsready ensures that your messages reach their intended recipients with no hassle. Say goodbye to juggling phone numbers and use Itsready to simplify your communications.
+</p>
           </div>
         </div>
       </div>
@@ -449,9 +448,10 @@
               <div class="card-body">
                 <h5 class="card-title text-success">
                   <i class="fas fa-sms"></i>
-                  Send messages to your contacts</h5>
-                <h6 class="card-subtitle mb-2 text-muted">Via sms</h6>
-                <p class="card-text fz-xsm">"ITSREADY" enables you to effortlessly send SMS to your agents by saving their contacts on the designated webpage's contacts tab. Stay connected seamlessly!</p>
+                  Send messages to your customers</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Via SMS</h6>
+                <p class="card-text fz-xsm">Itsready enables you to effortlessly send SMS to a customer at a time or to multiple customers. Stay connected seamlessly!
+</p>
               </div>
             </div>
           </div>
@@ -460,9 +460,11 @@
               <div class="card-body">
                 <h5 class="card-title text-success">
                   <i class="fas fa-microphone"></i>
-                  Send voicemails to your contacts</h5>
-                <h6 class="card-subtitle mb-2 text-muted">Via sms</h6>
-                <p class="card-text fz-xsm">"ITSREADY" makes it effortless to send voicemails to your agents by storing their contacts in the contacts tab. Stay connected by using this platform for smooth communication!</p>
+                  Send voicemails</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Vie automated voice</h6>
+                <p class="card-text fz-xsm">
+Itsready makes it easy to send voicemails to your customers/clients phones to keep them informed.
+</p>
               </div>
             </div>
           </div>
@@ -471,9 +473,11 @@
               <div class="card-body">
                 <h5 class="card-title text-success">
                   <i class="fas fa-sms"></i>
-                  Send messages to agents</h5>
-                <h6 class="card-subtitle mb-2 text-muted">Via SMS</h6>
-                <p class="card-text fz-xsm">"ITSREADY" enables you to effortlessly send SMS to your agents by saving their contacts on the designated webpage's contacts tab. Stay connected seamlessly!</p>
+                  History and Notes</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Notebook</h6>
+                <p class="card-text fz-xsm"
+Take notes and have them handy. Itsready provides you with history of all your sent communications real time.
+!</p>
               </div>
             </div>
           </div>
@@ -584,7 +588,7 @@
       <button class="btn btn-success my-3 compose-voicemail-reveal-btn">Compose Voicemail</button>
       <!-- template message wrapper -->
       <div class="template-messages-wrapper">
-        <h4 class="heading">Select template message here:</h4>
+        <h4 class="heading">Select message template here:</h4>
         <ul class="template-messages-list">
           <!-- <!-- create template-message lists with class template-me -->
           <li tabindex="0" class="template-message" data-template-message="hello, how are you doing?">hello, how are you doing?</li>
@@ -659,7 +663,7 @@
 
         // fetching contacts from data 
         window.addEventListener("load", ()=>{
-          fetch(`http://localhost:8000/api/get_contacts/?userid=${userId}`).then((res) => res.json()).then((data) => {
+          fetch("http://" + location.host +  "/api/get_contacts/?userid=" + userId).then((res) => res.json()).then((data) => {
             const contacts = data
             const contactsListUl = document.querySelector("#contact-list")
             
@@ -964,7 +968,7 @@
       <div class=" d-flex justify-content-center align-items-center">
         <div class="notes-box p-2">
           <h2 class="text-center title mb-0">Notebook</h2>
-          <p class="text-center mb-1">Write short notes to keep records.</p>
+          <p class="text-center mb-1">Short notes for your records.</p>
           <form action="#n" class="my-0" id="enter-notes-form">
             <input type="text" class="" id="enter-notes" placeholder="Enter note eg. sales record">
             <input type="submit" class="btn btn-primary notes-submit-btn" value="Add note">
