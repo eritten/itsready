@@ -3,15 +3,29 @@
 {% block title %}
 Logged out
 {% endblock %}
-
-{% block breadcrumbs %}<div class="breadcrumbs"><a href="{% url 'admin:index' %}">{% translate 'Home' %}</a></div>{% endblock %}
+{% block breadcrumbs %}
+<div class="breadcrumbs"><a href="{% url 'admin:index' %}">{% translate 'Home' %}</a></div>
+{% endblock %}
 
 {% block nav-sidebar %}{% endblock %}
 
 {% block content %}
+<style>
+    #logout-container {
+        min-height: 70vh;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+<main class="container" id="logout-container">
+    <p>{% translate "Thanks for spending some quality time with the Web site today." %}</p>
+    
+    <a href="{% url 'login' %}" class="btn btn-success">{% translate 'Log in again' %}</a>
+    <a href="{% url 'home' %}" class="btn btn-primary">Home</a>
 
-<p>{% translate "Thanks for spending some quality time with the Web site today." %}</p>
-
-<p><a href="{% url 'login' %}">{% translate 'Log in again' %}</a></p>
+</main>
 
 {% endblock %}

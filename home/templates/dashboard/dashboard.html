@@ -240,10 +240,18 @@
   </button>
   <!-- end of button -->
   <!-- sidebar -->
+  <style>
+    .avatar-box {
+      overflow: hidden;
+      border-radius: 50%!important;
+    }
+  </style>
   <aside class="sidebar" data-sidebar>
 
     <div class="sidebar-info">
-
+      <figure class="avatar-box">
+        <img src="{% static 'img/logo.jpg' %}" alt="logo" width="80">
+      </figure>
       <div class="info-content">
         <h2 class="name">ITSREADY</h2>
         <p class="title">dashboard</p>
@@ -260,19 +268,6 @@
       <div class="separator"></div>
 
       <ul class="contacts-list">
-
-        <!-- <li class="contact-item">
-
-          <div class="icon-box">
-            <i class="fas fa-calendar">ddd</i>
-          </div>
-
-          <div class="contact-info">
-            <a href="{% url 'home' %}" class="contact-title">ITSREADY</a>
-            <time datetime="1982-06-23">June 23, 1982</time>
-          </div>
-
-        </li> -->
         
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle txt-white" href="#" id="navbarDropdown" role="button"
@@ -343,11 +338,9 @@
   -->
 
   <div class="main-content">
-
     <!--
       - #NAVBAR
     -->
-
     <nav class="dashboard-navbar">
 
       <ul class="navbar-list">
@@ -419,17 +412,6 @@
             <i class="fas fa-microphone"></i>
           </div>
         </div>
-        <!-- end -->
-        <!-- start -->
-        <!-- <div class="stat-box" tabindex="0">
-          <div class="content-box">
-            <h3 class="stat-title">Total Users</h3>
-            <p class="stat-number">1,200</p>
-          </div>
-          <div class="icon-box">
-            <i class="fas fa-users"></i>
-          </div>
-        </div> -->
         <!-- end -->
       </section>
       <!-- end of stats section -->
@@ -620,14 +602,16 @@
       <!-- message contact list wrapper -->
       <div class="message-contact-list-wrapper">
         <div class="compose-sms-box" role="alert" aria-label="compose message here">
-          <input type="number" class="form-control" placeholder="Enter number">
-          <textarea placeholder="compose message here" id="compose-sms-textarea"></textarea>
-          <button class="btn btn-success" data-target="#sendMessage" data-toggle="modal" id="sendMessage-btn">Send</button>
+          <input type="number" class="form-control" placeholder="Enter number (add country code)">
+          <textarea placeholder="Compose message here" id="compose-sms-textarea"></textarea>
+            <!-- this button is to send sms -->
+          <button class="btn btn-success" id="sendMessage-btn">Send</button>
 
           <div class="compose-voicemail-box" role="alert" aria-label="compose voicemail here">
-          <input type="number" class="form-control" placeholder="Enter number">
-            <textarea placeholder="compose voicemail here" id="compose-voicemail-textarea"></textarea>
-            <button class="btn btn-success" data-target="#sendMessage" data-toggle="modal">Send</button>
+          <input type="number" class="form-control" placeholder="Enter number (add country code)">
+            <textarea placeholder="Compose voicemail here" id="compose-voicemail-textarea"></textarea>
+            <!-- this button is to send voicemail -->
+            <button class="btn btn-success">Send</button>
           </div>
         </div>
         <div class="contact-list-box">
@@ -1155,7 +1139,7 @@
             newNote.setAttributeNode(idAttr)
             newNote.setAttribute("tabindex", 0)
             newNote.innerHTML = `
-            <div class="content-box">
+            <div class="content-box">   
                 <p class="text-capitalize">${value}</p>
               </div>
               <div class="action-box">
@@ -1312,52 +1296,8 @@
   </div>
 </div>
 <!-- end of modal popup for add contact -->
-<!-- modal popup for send message -->
-<div class="modal fade" id="send-message" tabindex="-1" role="dialog" aria-labelledby="sendmessagelabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="sendmessagelabel">Send message to this contact</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-       <form action="#">
-        <div class="form-group">
-          <label for="compose-message">Example textarea</label>
-          <textarea class="form-control" id="compose-message" rows="5"></textarea>
-        </div>
-       </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-        <button type="button" id="updateContact" class="btn btn-success" data-dismiss="modal">Send message</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- end of modal popup for send message -->
-<!-- modal popup for send message -->
-<div class="modal fade" id="sendMessage" tabindex="-1" role="dialog" aria-labelledby="sendMessageLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="logoutLabel">Send to</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-        <a href="#" type="button" class="btn btn-success">send</a>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- end of modal popup for send message -->
 
-<script>
+<script>  
   const composeSmsRevealBtn = document.querySelector('.compose-sms-reveal-btn');
   const textbox = document.querySelector("#compose-sms-textarea")
   const composeVmrevealBtn = document.querySelector(".compose-voicemail-reveal-btn")
@@ -1377,7 +1317,6 @@
     compVmBx.classList.remove("active")
     textbox.focus()
   });
-
 
  // adding active class to voicemail-contact-list-wrapper
  composeVmrevealBtn.addEventListener('click', () => {
