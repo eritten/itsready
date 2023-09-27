@@ -7,7 +7,7 @@ from django.db.models.signals import post_save
 @receiver(post_save, sender=User)
 def mail(sender, instance, created, **kwargs):
     if created:
-        instance.email_user("Welcome to itsready", "Thank you for registering on itsready app.")
+        instance.email_user(f"{instance.username.capitalize()}, welcome to Itsready", """Thank you for registering for Itsready. We hope you enjoy our services.\r https://www.itsreaddy.com \r You can also download our app from Play Store and App Store.""")
                             
                             
                             

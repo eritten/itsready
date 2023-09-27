@@ -137,10 +137,10 @@ LOGOUT_URL = "/users/logout/"
 
 # email settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'mail.niveel.com'
-EMAIL_HOST_USER = 'adm@niveel.com'
+EMAIL_HOST = 'mail.itsreaddy.com'
+EMAIL_HOST_USER = 'support@itsreaddy.com'
 EMAIL_HOST_PASSWORD = '!Store526$'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'adm@niveel.com'
+DEFAULT_FROM_EMAIL = 'support@itsreaddy.com'
 
