@@ -12,7 +12,7 @@ class Profile(models.Model):
     country = models.CharField(max_length=100, blank=True)
     phone_number = models.CharField(max_length=100, blank=True)
     profile_picture = models.ImageField(upload_to='profile_pictures', blank=True)
-
+    company_name = models.CharField(max_length=300, blank=True)
     def __str__(self):
         return self.user.username
 
