@@ -34,7 +34,7 @@ html {
 }
 @font-face {
     font-family: roboto;
-    src: url(../fonts/roboto/Roboto-Regular.ttf)
+    src: url("../fonts/roboto/Roboto-Regular.8a36205bd9b8.ttf")
 }
 *,::before,::after {
     margin: 0;
@@ -114,7 +114,7 @@ img, ion-icon, a, button, time, span { display: block; }
 .header {
     width: 100%;
     height: 100vh!important;
-    background-image: url(../img/bg.jpg);
+    background-image: url("../img/bg.a6d36776825d.jpg");
     background-size: 100% 100%;
 }
 .w100 {
@@ -164,7 +164,7 @@ img, ion-icon, a, button, time, span { display: block; }
     position: relative;
     width: 100%;
     text-align: center;
-    filter: url(#fire);
+    filter: url("#fire");
 }
 .fire-text h4 {
     position: relative;
