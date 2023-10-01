@@ -35,7 +35,7 @@ def signup(request):
             # addd google recaptcha v3 and use requests to verify the token
         captcha_url = "https://www.google.com/recaptcha/api/siteverify"
         captcha_token = request.POST.get('g-recaptcha-response')
-        captcha_key = "6LcgcGgoAAAAAMeLnqC3khf5pvTXALeQkTAE9A0O"
+        captcha_key = "6LcYfGgoAAAAAFV5wVPibKpS-Wsu0yFNK524o5Cc"
         data = {
             'secret': captcha_key,
             'response': captcha_token
