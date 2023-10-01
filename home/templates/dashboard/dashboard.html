@@ -223,6 +223,10 @@
           width: 100%;
         }
       }
+      .navbar-link {
+        padding: 9px 5px;
+        font-size: 0.8rem!important;
+      }
       .scroll-top-btn {
         bottom: 8rem;
         right: 2rem;
@@ -233,6 +237,25 @@
       .contacts-container {
         overflow-x: auto;
       }
+      .template-messages-wrapper {
+        height: 10rem;
+        overflow-y: auto;
+      }
+      .template-messages-list {
+        grid-template-columns: repeat(2,1fr)!important;
+
+        .template-message {
+          height: 3rem;
+          font-size: 0.8rem!important;
+        }
+      }
+      .message-contact-list-wrapper {
+        margin: 1rem auto;
+      }
+    }
+    #compose-voicemail-textarea {
+      height: 8rem;
+      margin-bottom: 0.2rem;
     }
   </style>
   <button class="scroll-top-btn text-white" data-scroll-top-btn aria-label="scroll to top button">
@@ -343,7 +366,7 @@
       <ul class="navbar-list">
 
         <li class="navbar-item">
-          <button class="navbar-link  active" data-nav-link>Dashboard</button>
+          <button class="navbar-link  active" data-nav-link>Home</button>
         </li>
 
         <li class="navbar-item">
@@ -475,7 +498,7 @@ Itsready makes it easy to send voicemails to your customers/clients phones to ke
                   <i class="fas fa-sms"></i>
                   History and Notes</h5>
                 <h6 class="card-subtitle mb-2 text-muted">Notebook</h6>
-                <p class="card-text fz-xsm"
+                <p class="card-text fz-xsm">
 Take notes and have them handy. Itsready provides you with history of all your sent communications real time.
 !</p>
               </div>
@@ -963,6 +986,18 @@ Take notes and have them handy. Itsready provides you with history of all your s
         button svg {
           pointer-events: none;
         }
+        @media (max-width: 480px) {
+          .clear-notes-btn {
+            /* position: absolute; */
+            left: unset!important;
+            right: 0;
+            bottom: unset!important;
+            top: -10px;
+          }
+          ul.notes-list {
+            padding-top: 4rem!important;
+          }
+        }
       </style>
       <!-- notes container -->
       <div class=" d-flex justify-content-center align-items-center">
@@ -971,7 +1006,7 @@ Take notes and have them handy. Itsready provides you with history of all your s
           <p class="text-center mb-1">Short notes for your records.</p>
           <form action="#n" class="my-0" id="enter-notes-form">
             <input type="text" class="" id="enter-notes" placeholder="Enter note eg. sales record">
-            <input type="submit" class="btn btn-primary notes-submit-btn" value="Add note">
+            <input type="submit" class="btn btn-primary notes-submit-btn btn-sm" value="Add note">
           </form>
           <p class="text-center text-capitalize text-white" id="alert-msg" role="alert"></p>
           <ul class="notes-list">
