@@ -35,30 +35,25 @@ def signup(request):
             # addd google recaptcha v3 and use requests to verify the token
         captcha_url = "https://www.google.com/recaptcha/api/siteverify"
         captcha_token = request.POST.get('g-recaptcha-response')
-        captcha_key = "6LfEJ8onAAAAAEC_p0XsnDWEf_MzQ0Sc6-HH2qCJ"
+        captcha_key = "6LcgcGgoAAAAAMeLnqC3khf5pvTXALeQkTAE9A0O"
         data = {
             'secret': captcha_key,
             'response': captcha_token
         }
         # Make request
-        try:
-            captcha_server = requests.post(url=captcha_url, data=data)
-            response = json.loads(captcha_server.text)
-            if response['success'] == False:
-                messages.error(request, 'Invalid Captcha. Try Again')
-#                return redirect('/')
-        except:
-            messages.error(request, 'Captcha could not be verified. Try Again')
         if form.is_valid():
-            form = form.save(commit=False)
-            form.password = make_password(form.password)
-            form.save()
-            messages.success(request, "Account created")
-            return redirect("home")
+            capture = requests.post(captcha_url, data=data)
+            if capture.ok:
+                form = form.save(commit=False)
+                form.password = make_password(form.password)
+                form.save()
+                messages.success(request, "Account created")
+                return redirect("home")
+            else:
+                messages.error(request, "Invalid captcha")
+#                return redirect("signup")
         return render(request, "registration/signup.html", {"form": form})
     return render(request, "registration/signup.html", {"form": form})
-
-
 
 @login_required
 def dashboard(request):
