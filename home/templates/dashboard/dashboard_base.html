@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
+    <meta name="description" content="Itsready is a versatile communication platform designed to enhance your customer service experience. You can effortlessly send both SMS and Voicemails to your clients contacts, all in one streamlined interface. Whether you need to deliver quick text messages or expressive voicemails, Itsready ensures that your messages reach their intended recipients with no hassle. Say goodbye to juggling phone numbers and use Itsready to simplify your communications.">
     <title>Dashboard</title>
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/aos.css' %}">
@@ -45,7 +45,7 @@ const csrf_token = '{{ csrf_token }}'
 
 
 window.addEventListener("load", ()=>{
-    fetch("https://" + location.host + "/api/get_contacts/" + "?userid=" + userId).then((res) => res.json()).then((data) => {
+    fetch("http://" + location.host + "/api/get_contacts/" + "?userid=" + userId).then((res) => res.json()).then((data) => {
         const contacts = data
        // displaying all the contacts data fetched from the api 
         contacts.map((contact) => {
@@ -118,7 +118,7 @@ window.addEventListener("load", ()=>{
         const addContactEmailVal = addContactEmail.value
         const addContactNumVal = addContactNum.value
 
-        fetch("https://" + location.host + "/api/add_contact/", {
+        fetch("http://" + location.host + "/api/add_contact/", {
            method: "POST",
             headers: {
             "Content-Type": "application/json",
