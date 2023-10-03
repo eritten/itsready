@@ -59,8 +59,6 @@ def signup(request):
 def dashboard(request):
     return render(request,"dashboard/dashboard.html")
 
-
-
 def privacy(request):
     return render(request, "home/privacy.html")
 
