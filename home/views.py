@@ -32,46 +32,18 @@ def home(request):
     return render(request, "home/home.html")
 
 
-# def signup(request):
-#     form = UserForm()
-#     if request.method == "POST":
-#         form = UserForm(request.POST)
-#         if form.is_valid():
-#             form = form.save(commit=False)
-#             form.password = make_password(form.password)
-#             form.save()
-#             messages.success(request, "Account created")
-#             return redirect("login")
-#         return render(request, "registration/signup.html", {"form": form})
-#     return render(request, "registration/signup.html", {"form": form})
-# write the same code as above but in add google recaptcha v3 to it and use requests to verify the token
 def signup(request):
     form = UserForm()
     if request.method == "POST":
         form = UserForm(request.POST)
-            # addd google recaptcha v3 and use requests to verify the token
-        captcha_url = "https://www.google.com/recaptcha/api/siteverify"
-        captcha_token = request.POST.get('g-recaptcha-response')
-        captcha_key = "6LcYfGgoAAAAAFV5wVPibKpS-Wsu0yFNK524o5Cc"
-        data = {
-            'secret': captcha_key,
-            'response': captcha_token
-        }
-        # Make request
         if form.is_valid():
-            capture = requests.post(captcha_url, data=data)
-            if capture.ok:
-                form = form.save(commit=False)
-                form.password = make_password(form.password)
-                form.save()
-                messages.success(request, "Account created")
-                return redirect("login")
-            else:
-                messages.error(request, "Invalid captcha")
-#                return redirect("signup")
+            form = form.save(commit=False)
+            form.password = make_password(form.password)
+            form.save()
+            messages.success(request, "Account created")
+            return redirect("login")
         return render(request, "registration/signup.html", {"form": form})
     return render(request, "registration/signup.html", {"form": form})
-
 @login_required
 def dashboard(request):
     return render(request,"dashboard/dashboard.html")

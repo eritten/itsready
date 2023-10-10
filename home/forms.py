@@ -5,12 +5,14 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from captcha.fields import CaptchaField
 
 class UserForm(forms.ModelForm):
     password2 = forms.CharField(widget=forms.PasswordInput, label="Confirm Password")
+    captcha = CaptchaField()
     class Meta:
         model =User
-        fields = ["username", "email", "password", "password2"]
+        fields = ["username", "email", "password", "password2", 'captcha']
         labels = {
         "password2": "Confirm Password"
         }

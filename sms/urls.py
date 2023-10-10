@@ -17,6 +17,7 @@ path('api/', include('home.urls')),
 path('users/', include('django.contrib.auth.urls')),
 path('privacy/', privacy, name='privacy'),
 path('terms/', terms, name='terms'),
+path('captcha/', include('captcha.urls')),
 ]
 # if settings.DEBUG:
 #     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
