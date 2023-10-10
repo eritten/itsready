@@ -24,7 +24,7 @@ def home(request):
 #             form.password = make_password(form.password)
 #             form.save()
 #             messages.success(request, "Account created")
-#             return redirect("home")
+#             return redirect("login")
 #         return render(request, "registration/signup.html", {"form": form})
 #     return render(request, "registration/signup.html", {"form": form})
 # write the same code as above but in add google recaptcha v3 to it and use requests to verify the token
@@ -48,7 +48,7 @@ def signup(request):
                 form.password = make_password(form.password)
                 form.save()
                 messages.success(request, "Account created")
-                return redirect("home")
+                return redirect("login")
             else:
                 messages.error(request, "Invalid captcha")
 #                return redirect("signup")

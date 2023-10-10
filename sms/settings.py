@@ -144,3 +144,15 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'support@itsreaddy.com'
 
+
+# mail configuration for admin and developers in django at the production level to get the error logs
+ADMINS = (
+    ('Admin', 'eritten2@gmail.com', 'imprezbookkeeping@gmail.com', 'adm@niveel.com'),
+)
+MANAGERS = ADMINS
+
+
+AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend',
+'home.email_auth_middleware.EmailBackend']
+
+
