@@ -83,3 +83,11 @@ class Privacy(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     def __str__(self):
         return self.ip
+    
+class Code(models.Model):
+    unique_code = models.CharField(max_length=100, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    date_generated = models.DateTimeField(default=timezone.now)
+    expiring_date = models.DateTimeField()
+    def __str__(self):
+        return self.code

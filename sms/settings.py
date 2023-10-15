@@ -21,9 +21,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-hkf(3+p&v%td0@_6!_g$--$8xlijawenrdrt4ikcwxtwn-fnz)'
+DELTA = 1
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG =False
+DEBUG = False
 ALLOWED_HOSTS = ["*"]
 
 
@@ -34,6 +35,7 @@ INSTALLED_APPS = [
 'api',
 'rest_framework',
 'captcha',
+'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,6 +45,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+        'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -147,13 +150,14 @@ DEFAULT_FROM_EMAIL = 'support@itsreaddy.com'
 
 
 # mail configuration for admin and developers in django at the production level to get the error logs
-ADMINS = (
-    ('Admin', 'eritten2@gmail.com', 'imprezbookkeeping@gmail.com', 'adm@niveel.com'),
-)
-MANAGERS = ADMINS
-
-
 AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend',
 'home.email_auth_middleware.EmailBackend']
 
+
+# cors configuration
+
+# enable corsheaders
+# enable CORS policy for all domains
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
 
