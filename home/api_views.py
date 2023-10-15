@@ -2,6 +2,8 @@
 from .serializers import ContactSerializer, SmsSerializer, VoiceMailSerializer
 # importing Contact, Sms, VoiceMail, User from models.py
 from .models import Contact, Sms, VoiceMail, User
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 # importing api view and status and response
 from rest_framework.decorators import api_view
@@ -10,6 +12,8 @@ from rest_framework.response import Response
 # importing Q for for search 
 from django.db.models import Q
 from django.contrib.auth.models import User
+# make_password for password encryption
+from django.contrib.auth.hashers import make_password
 
 # view to add contact. using user id to add contact. user is as request.data.get("userid"). use functional based view. contact information contact_name, contact_email, contact_telephonenumber is as request.data.get("contact_name"), request.data.get("contact_email"), request.data.get("contact_telephonenumber")
 @api_view(['POST'])
@@ -170,11 +174,11 @@ def create_account(request):
     password = request.data.get("password")
     email = request.data.get("email")
     # check whether user exists or not
-    if User.objects.filter(username=username).exists():
-        return Response({"message": "Username already exists"}, status=status.HTTP_400_BAD_REQUEST)
+    if User.objects.filter(username=username).exists() or User.objects.filter(email=email).exists():
+        return Response({"message": "User already exists"}, status=status.HTTP_400_BAD_REQUEST)
     else:
-        user = User.objects.create_user(username=username, password=password, email=email)
-        user.save()
+        User.objects.create(username=username, password=make_password(password), email=email)
+#        user.save()
         return Response({"message": "Account created successfully"}, status=status.HTTP_201_CREATED)
     
 # delete account
@@ -188,3 +192,20 @@ def delete_account(request):
         return Response({"message": "Account deleted successfully"}, status=status.HTTP_200_OK)
     else:
         return Response({"message": "User does not exist"}, status=status.HTTP_400_BAD_REQUEST)
+    
+    
+
+class MyTokenObtainPair(TokenObtainPairSerializer):
+    def validate(self, attrs):
+        data = super().validate(attrs)
+        # serializer = UserSerializerWithToken(self.user).data
+        # for k,v in serializer.items():
+        # data[k] = v
+        data['user_id'] = self.user.id
+        data['username'] = self.user.username
+        data['email'] = self.user.email
+        return data
+
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPair
+

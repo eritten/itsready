@@ -34,6 +34,8 @@ INSTALLED_APPS = [
 'home',
 'api',
 'rest_framework',
+# simplejwt
+'rest_framework_simplejwt',
 'captcha',
 'corsheaders',
     'django.contrib.admin',
