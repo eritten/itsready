@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view
 from datetime import timedelta as td
-from .models import  Code
+from .models import  Profile, Code
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from datetime import datetime
@@ -31,30 +31,11 @@ def generate(request):
             code.expiring_date = DELTA + code.date_generated
             code.save()
 
-            send_mail("Itsreaddy EMAIL ACCOUNT VERIFICATION CODE", f'Hello {user[0].username}, \r Use the below code to verify your email address in the itsreaddy mobile app.\n\r Code: {code.unique_code} \r This code will expire in an hour time. \nThank you. \n\n\n Need help? Send an email to our support team at support@itsreaddy.com.', 'support@itsreaddy.com', [email], fail_silently=True)
+            send_mail("ITSREADDY EMAIL ACCOUNT VERIFICATION CODE", f'Hello {user[0].username.capitalize()}, \rPlease use below code to verify your email address in the itsreaddy mobile app.\n\r Code: {code.unique_code} \r This code will expire in an hour time. \nThank you. \n\n\n Need help? Send an email to our support team at support@itsreaddy.com.', 'support@itsreaddy.com', [email], fail_silently=True)
         except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         return Response({"status": "ok"})
     return Response({"status": "error"}, status=status.HTTP_404_NOT_FOUND)
-@api_view(["POST"])
-def validate_code(request):
-    code_number = request.data.get("code")
-    print(code_number)
-    code = Code.objects.filter(unique_code=code_number)[0]
-    print(code)
-
-    if code:
-        if datetime.now(tz=pytz.utc) < code.expiring_date:
-            user = Profile.objects.get(user=code.user)
-            print(user)
-            user.is_validated=True
-            user.save()
-            send_mail('Offiss Welcome message', f'Hello {user.user.first_name}, Your offiiss account has been validated \n\n\n Need help? Send an email to our support team at support@offiis.com.', 'offiissapp@offiiss.com',  [user.user.email], fail_silently=True)
-            return Response({"status": "ok"})
-            code.delete()
-
-        return Response({"status": "Code expired"}, status=status.HTTP_423_LOCKED)
-    return Response({"status": "Invalid code"}	, status=status.HTTP_417_EXPECTATION_FAILED)
 
 @api_view(["POST"])
 def reset(request):
@@ -71,3 +52,25 @@ def reset(request):
     except Exception as e:
         return Response({"error": str(e)})
 
+
+
+
+@api_view(["POST"])
+def validate_code(request):
+    code_number = request.data.get("code")
+    print(code_number)
+    code = Code.objects.filter(unique_code=code_number)[0]
+    print(code)
+
+    if code:
+        if datetime.now(tz=pytz.utc) < code.expiring_date:
+            user = Profile.objects.get(user=code.user)
+            print(user)
+            user.is_validated=True
+            user.save()
+            send_mail('ITSREADDY Welcome message', f'Hello {user.user.username.capitalize()}, Your itsreaddy account has been verified\n\n\n Need help? Send an email to our support team at support@itsreaddy.com.', 'support@itsreaddy.com',  [user.user.email], fail_silently=True)
+            return Response({"status": "ok"})
+            code.delete()
+
+        return Response({"status": "Code expired"}, status=status.HTTP_423_LOCKED)
+    return Response({"status": "Invalid code"}	, status=status.HTTP_417_EXPECTATION_FAILED)

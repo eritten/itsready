@@ -1,4 +1,4 @@
-from .models import Sms, VoiceMail, Contact
+from .models import Note, Sms, VoiceMail, Contact
 # importing the serializers
 from rest_framework import serializers
 
@@ -46,3 +46,12 @@ class VoiceMailSerializer(serializers.ModelSerializer):
         model = VoiceMail
         fields = ['id', 'user', 'contact', 'message', 'date', 'contact']
         
+
+# creating a serializer for note model. it has one to many relationship with user model. it has one to one relationship with contact model
+class NoteSerializer(serializers.ModelSerializer):
+    # user has one to many relationship with note model
+#    user = serializers.ReadOnlyField(source='user.username')
+    user = serializers.StringRelatedField(read_only=True)
+    class Meta:
+        model = Note
+        fields = ['id', 'user', 'note',  'date']

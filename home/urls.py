@@ -1,8 +1,8 @@
-from .api_views import get_contacts, add_contact, search_contact, delete_contact, update_contact, change_password, change_email, change_username, create_account, delete_account, MyTokenObtainPairView
+from .api_views import get_contacts, add_contact, search_contact, delete_contact, update_contact, change_password, change_email, change_username, create_account, delete_account, MyTokenObtainPairView, add_note, get_notes, delete_note, update_note
 from django.urls import path
 # importing format suffix patterns
 from rest_framework.urlpatterns import format_suffix_patterns
-from .validate import generate, reset
+from .validate import generate, reset, validate_code
 
 urlpatterns = [
     path('get_contacts/', get_contacts, name='get_contacts'),
@@ -19,6 +19,14 @@ urlpatterns = [
     path('generate/', generate, name='generate'),
     path('reset/', reset, name='reset'),
     path('login/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
+#    path('validate/', validate, name='validate'),
+    path('validate/', validate_code, name='validate_code'),
+    path('add_note/', add_note, name='add_note'),
+    path('get_notes/', get_notes, name='get_notes'),
+    path('delete_note/', delete_note, name='delete_note'),
+    path('update_note/', update_note, name='update_note'),
+    
+    
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

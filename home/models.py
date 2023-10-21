@@ -7,12 +7,13 @@ from django.utils import timezone
 # user  profile. it should have  is paid money or not. city, country and phone number and profile picture.
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    is_paid = models.BooleanField(default=False)
-    city = models.CharField(max_length=100, blank=True)
-    country = models.CharField(max_length=100, blank=True)
-    phone_number = models.CharField(max_length=100, blank=True)
-    profile_picture = models.ImageField(upload_to='profile_pictures', blank=True)
-    company_name = models.CharField(max_length=300, blank=True)
+    is_paid = models.BooleanField(default=False, blank=True, null=True)
+    city = models.CharField(max_length=100, blank=True, null=True)
+    country = models.CharField(max_length=100, blank=True, null=True )
+    phone_number = models.CharField(max_length=100, blank=True, null=True)
+    profile_picture = models.ImageField(upload_to='profile_pictures', blank=True, null=True)
+    company_name = models.CharField(max_length=300, blank=True, null=True)
+    is_validated = models.BooleanField(default=False, blank=True, null=True)
     def __str__(self):
         return self.user.username
 
@@ -90,4 +91,11 @@ class Code(models.Model):
     date_generated = models.DateTimeField(default=timezone.now)
     expiring_date = models.DateTimeField()
     def __str__(self):
-        return self.code
+        return self.unique_code
+    
+class Note(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    note = models.TextField(blank=True)
+    date = models.DateTimeField(default=timezone.now)
+    def __str__(self):
+        return self.user.username

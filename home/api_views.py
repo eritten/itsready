@@ -1,5 +1,5 @@
 # importing contactSerializer, smsSerializer, voiceMailSerializer, userSerializer from serializers.py
-from .serializers import ContactSerializer, SmsSerializer, VoiceMailSerializer
+from .serializers import ContactSerializer, SmsSerializer, VoiceMailSerializer, NoteSerializer
 # importing Contact, Sms, VoiceMail, User from models.py
 from .models import Contact, Sms, VoiceMail, User
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -14,6 +14,7 @@ from django.db.models import Q
 from django.contrib.auth.models import User
 # make_password for password encryption
 from django.contrib.auth.hashers import make_password
+from .models import Profile
 
 # view to add contact. using user id to add contact. user is as request.data.get("userid"). use functional based view. contact information contact_name, contact_email, contact_telephonenumber is as request.data.get("contact_name"), request.data.get("contact_email"), request.data.get("contact_telephonenumber")
 @api_view(['POST'])
@@ -177,7 +178,8 @@ def create_account(request):
     if User.objects.filter(username=username).exists() or User.objects.filter(email=email).exists():
         return Response({"message": "User already exists"}, status=status.HTTP_400_BAD_REQUEST)
     else:
-        User.objects.create(username=username, password=make_password(password), email=email)
+        user=User.objects.create(username=username, password=make_password(password), email=email)
+        Profile.objects.create(user=user)
 #        user.save()
         return Response({"message": "Account created successfully"}, status=status.HTTP_201_CREATED)
     
@@ -209,3 +211,82 @@ class MyTokenObtainPair(TokenObtainPairSerializer):
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPair
 
+from .models import Note
+
+# function view to add note params: userid, note.
+@api_view(['POST'])
+def add_note(request):
+    if request.method == 'POST':
+        user = request.data.get("userid")
+        note = request.data.get("note")
+        # if user and note is not empty then add note
+        if user and note:
+            # get user from User model
+            user = User.objects.get(id=user)
+            # create note using Note model
+            note = Note.objects.create(user=user, note=note)
+            # save note
+            note.save()
+            # return response as note added successfully
+            return Response({"message": "Note added successfully"}, status=status.HTTP_201_CREATED)
+        # else return response as note not added
+        else:
+            return Response({"message": "Note not added"}, status=status.HTTP_400_BAD_REQUEST)
+        
+# function view to get notes params: userid.
+@api_view(['GET'])
+def get_notes(request):
+    if request.method == 'GET':
+        user = request.query_params.get("userid")
+        # if user is not empty then get note
+        if user:
+            # get user from User model
+            user = User.objects.get(id=user)
+            # get notes using Note model
+            notes = Note.objects.filter(user=user)
+            # serialize notes using NoteSerializer
+            serializer = NoteSerializer(notes, many=True)
+            # return response as notes
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        # else return response as no notes found
+        else:
+            return Response({"message": "No notes found"}, status=status.HTTP_400_BAD_REQUEST)
+        
+# function view to delete note params: noteid.
+@api_view(['DELETE'])
+def delete_note(request):
+    if request.method == 'DELETE':
+        note = request.data.get("noteid")
+        # if note is not empty then delete note
+        if note:
+            # get note from Note model
+            note = Note.objects.get(id=note)
+            # delete note
+            note.delete()
+            # return response as note deleted successfully
+            return Response({"message": "Note deleted successfully"}, status=status.HTTP_200_OK)
+        # else return response as note not deleted
+        else:
+            return Response({"message": "Note not deleted"}, status=status.HTTP_400_BAD_REQUEST)
+        
+# function view to update note params: noteid, note.
+@api_view(['PUT'])
+def update_note(request):
+    if request.method == 'PUT':
+        note = request.data.get("noteid")
+        note_text = request.data.get("note")
+        # if note and note_text is not empty then update note
+        if note and note_text:
+            # get note from Note model
+            note = Note.objects.get(id=note)
+            # update note_text
+            note.note = note_text
+            # save note
+            note.save()
+            # return response as note updated successfully
+            return Response({"message": "Note updated successfully"}, status=status.HTTP_200_OK)
+        # else return response as note not updated
+        else:
+            return Response({"message": "Note not updated"}, status=status.HTTP_400_BAD_REQUEST)
+        
+    

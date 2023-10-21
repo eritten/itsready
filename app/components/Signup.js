@@ -11,16 +11,16 @@ const [email, setEmail] = useState('');
 const [password, setPassword] = useState('');
 const [confirmPassword, setConfirmPassword] = useState('');
 function  Signup() {
-    axios.post('http://localhost:8000/api/create_account/', {
+    axios.post('https://www.itsreaddy.com/api/create_account/', {
         username: username,
         email: email,
         password: password
     })
     .then(function (response) {
-        alert(response);
+        alert(response.data.message);
     })
     .catch(function (error) {
-       alert(error);
+       alert("User already exists");
     });
 
 }
