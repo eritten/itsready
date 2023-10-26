@@ -21,7 +21,7 @@ class Profile(models.Model):
 class CreditCard(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     card_number = models.CharField(max_length=100, blank=True)
-    card_holder_name = models.CharField(max_length=100, blank=True)
+    card_holder_name = models.CharField(max_length=100, blank=True, null=True)
     expiration_date = models.CharField(max_length=100, blank=True)
     cvv = models.CharField(max_length=100, blank=True)
     is_active = models.BooleanField(default=False)

@@ -1,7 +1,7 @@
 # importing contactSerializer, smsSerializer, voiceMailSerializer, userSerializer from serializers.py
-from .serializers import ContactSerializer, SmsSerializer, VoiceMailSerializer, NoteSerializer
+from .serializers import ContactSerializer, SmsSerializer, VoiceMailSerializer, NoteSerializer, CreditCardSerializer
 # importing Contact, Sms, VoiceMail, User from models.py
-from .models import Contact, Sms, VoiceMail, User
+from .models import Contact, Sms, VoiceMail, User, CreditCard
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 
@@ -290,3 +290,68 @@ def update_note(request):
             return Response({"message": "Note not updated"}, status=status.HTTP_400_BAD_REQUEST)
         
     
+# end point for returning sms history
+@api_view(['GET'])
+def sms_history(request):
+    if request.method == 'GET':
+        # get the user id from the request
+        user_id = request.query_params.get("userid")
+        # if user id is not empty then get sms history
+        if user_id:
+            # get user from User model
+            user = User.objects.get(id=user_id)
+            # get sms history using Sms model
+            sms = Sms.objects.filter(contact__user=user)
+            # serialize sms using SmsSerializer
+            serializer = SmsSerializer(sms, many=True)
+            # return response as sms
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        # else return response as no sms history found
+        else:
+            return Response({"message": "No sms history found"}, status=status.HTTP_400_BAD_REQUEST)
+        
+# end point for returning voicemail history
+@api_view(['GET'])
+def voicemail_history(request):
+    if request.method == 'GET':
+        # get the user id from the request
+        user_id = request.query_params.get("userid")
+        # if user id is not empty then get voicemail history
+        if user_id:
+            # get user from User model
+            user = User.objects.get(id=user_id)
+            # get voicemail history using VoiceMail model
+            voicemail = VoiceMail.objects.filter(contact__user=user)
+            # serialize voicemail using VoiceMailSerializer
+            serializer = VoiceMailSerializer(voicemail, many=True)
+            # return response as voicemail
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        # else return response as no voicemail history found
+        else:
+            return Response({"message": "No voicemail history found"}, status=status.HTTP_400_BAD_REQUEST)
+
+# end point for saving credit card details
+@api_view(['POST'])
+def credit_card(request):
+    if request.method == 'POST':
+        # get the user id from the request
+        user_id = request.data.get("userid")
+        # get the credit card number from the request
+        credit_card_number = request.data.get("credit_card_number")
+        # get the credit card expiry date from the request
+        credit_card_expiry_date = request.data.get("credit_card_expiry_date")
+        # get the credit card cvv from the request
+        credit_card_cvv = request.data.get("credit_card_cvv")
+        # if user id, credit card number, credit card expiry date, credit card cvv is not empty then save credit card details
+        if user_id and credit_card_number and credit_card_expiry_date and credit_card_cvv:
+            # get user from User model
+            user = User.objects.get(id=user_id)
+            # create credit card using CreditCard model
+            CreditCard.objects.create(user=user, credit_card_number=credit_card_number, expiry_date=credit_card_expiry_date, card_cvv=credit_card_cvv)
+            # save credit card
+#            credit_card.save()
+            # return response as credit card details saved successfully
+            return Response({"message": "Credit card details saved successfully"}, status=status.HTTP_201_CREATED)
+        # else return response as credit card details not saved
+        else:
+            return Response({"message": "Credit card details not saved"}, status=status.HTTP_400_BAD_REQUEST)

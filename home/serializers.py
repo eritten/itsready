@@ -1,4 +1,4 @@
-from .models import Note, Sms, VoiceMail, Contact
+from .models import Note, Sms, VoiceMail, Contact, CreditCard
 # importing the serializers
 from rest_framework import serializers
 
@@ -55,3 +55,13 @@ class NoteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Note
         fields = ['id', 'user', 'note',  'date']
+        
+
+# creating  serializer for CreditCard it has one to one relationship with user model
+class CreditCardSerializer(serializers.ModelSerializer):
+    # user has one to many relationship with note model
+#    user = serializers.ReadOnlyField(source='user.username')
+    user = serializers.StringRelatedField(read_only=True)
+    class Meta:
+        model = CreditCard
+        fields = ['id', 'user', 'card_number', 'card_holder_name', 'expiry_date', 'cvv']
