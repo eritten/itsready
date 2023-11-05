@@ -355,3 +355,17 @@ def credit_card(request):
         # else return response as credit card details not saved
         else:
             return Response({"message": "Credit card details not saved"}, status=status.HTTP_400_BAD_REQUEST)
+        
+
+@api_view(["POST"])
+def send_voice_mail(request):
+    userid = request.data.get("userid")
+    contacts = request.data.get("contacts")
+    return Response({"message": "voice mail sent successfully"}, status=status.HTTP_200_OK)
+
+@api_view(["POST"])
+def send_sms(request):
+    userid = request.data.get("userid")
+    contacts = request.data.get("contacts")
+
+    return Response({"message": "sms sent successfully"})
