@@ -173,13 +173,14 @@ def change_username(request):
 def create_account(request):
     username = request.data.get("username")
     password = request.data.get("password")
+    company_name = request.data.get("company_name")
     email = request.data.get("email")
     # check whether user exists or not
     if User.objects.filter(username=username).exists() or User.objects.filter(email=email).exists():
         return Response({"message": "User already exists"}, status=status.HTTP_400_BAD_REQUEST)
     else:
         user=User.objects.create(username=username, password=make_password(password), email=email)
-        Profile.objects.create(user=user)
+        Profile.objects.create(user=user, company_name=company_name)
 #        user.save()
         return Response({"message": "Account created successfully"}, status=status.HTTP_201_CREATED)
     
@@ -346,8 +347,16 @@ def credit_card(request):
         if user_id and credit_card_number and credit_card_expiry_date and credit_card_cvv:
             # get user from User model
             user = User.objects.get(id=user_id)
+            # getting the profile
+            profile = Profile.objects.get(user=user)
+            # setting the is_credit_card_active to True
+            
             # create credit card using CreditCard model
             CreditCard.objects.create(user=user, credit_card_number=credit_card_number, expiry_date=credit_card_expiry_date, card_cvv=credit_card_cvv)
+            # setting the is_credit_card_active to True
+            profile.is_credit_card_active = True
+            # save profile
+            profile.save()
             # save credit card
 #            credit_card.save()
             # return response as credit card details saved successfully
@@ -369,3 +378,11 @@ def send_sms(request):
     contacts = request.data.get("contacts")
 
     return Response({"message": "sms sent successfully"})
+@api_view(["GET"])
+def get_user(request):
+    userid = request.query_params.get("userid")
+    user = User.objects.get(id=userid)
+# getting user profile
+    profile = Profile.objects.get(user=user)
+    data= {"username": user.username, "email": user.email, "company_name": profile.company_name, "is_credit_card_active": profile.is_credit_card_active}
+    return Response(data, status=status.HTTP_200_OK)

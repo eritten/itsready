@@ -14,6 +14,7 @@ class Profile(models.Model):
     profile_picture = models.ImageField(upload_to='profile_pictures', blank=True, null=True)
     company_name = models.CharField(max_length=300, blank=True, null=True)
     is_validated = models.BooleanField(default=False, blank=True, null=True)
+    is_credit_card_active = models.BooleanField(default=False, blank=True, null=True)
     def __str__(self):
         return self.user.username
 
