@@ -1,4 +1,4 @@
-from .api_views import get_user, get_contacts, add_contact, search_contact, delete_contact, update_contact, change_password, change_email, change_username, create_account, delete_account, MyTokenObtainPairView, add_note, get_notes, delete_note, update_note, sms_history, voicemail_history, credit_card, send_voice_mail, send_sms
+from .api_views import get_user, get_contacts, add_contact, search_contact, delete_contact, update_contact, change_password, change_email, change_username, create_account, delete_account, MyTokenObtainPairView, add_note, get_notes, delete_note, update_note, sms_history, voicemail_history, credit_card, send_voice_mail, send_sms, delete_credit_card, update_credit_card, get_credit_card
 from django.urls import path
 # importing format suffix patterns
 from rest_framework.urlpatterns import format_suffix_patterns
@@ -31,6 +31,10 @@ urlpatterns = [
     path('send_voice_mail/', send_voice_mail, name='send_voice_mail'),
     path('send_sms/', send_sms, name='send_sms'),
     path('get_user/', get_user, name='get_user'),
+    path('delete_credit_card/', delete_credit_card, name='delete_credit_card'),
+    path('update_credit_card/', update_credit_card, name='update_credit_card'),
+    path('get_credit_card/', get_credit_card, name='get_credit_card'),
+    
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

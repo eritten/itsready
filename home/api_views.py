@@ -415,3 +415,73 @@ def get_user(request):
     return Response(data, status=status.HTTP_200_OK)
 
 
+
+# end point for getting credit card details for a specific user using his userid
+@api_view(['GET'])
+def get_credit_card(request):
+    if request.method == 'GET':
+        # get the user id from the request
+        user_id = request.query_params.get("userid")
+        # if user id is not empty then get credit card details
+        if user_id:
+            # get user from User model
+            user = User.objects.get(id=user_id)
+            # get credit card details using CreditCard model
+            credit_card = CreditCard.objects.get(user=user)
+            # serialize credit card using CreditCardSerializer
+            serializer = CreditCardSerializer(credit_card)
+            # return response as credit card details
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        # else return response as no credit card details found
+        else:
+            return Response({"message": "No credit card details found"}, status=status.HTTP_400_BAD_REQUEST)
+        
+# end point for deleting credit card details for a specific user using his userid
+@api_view(['DELETE'])
+def delete_credit_card(request):
+    if request.method == 'DELETE':
+        # get the user id from the request
+        user_id = request.data.get("userid")
+        # if user id is not empty then delete credit card details
+        if user_id:
+            # get user from User model
+            user = User.objects.get(id=user_id)
+            # get credit card details using CreditCard model
+            credit_card = CreditCard.objects.get(user=user)
+            # delete credit card details
+            credit_card.delete()
+            # return response as credit card details deleted successfully
+            return Response({"message": "Credit card details deleted successfully"}, status=status.HTTP_200_OK)
+        # else return response as no credit card details found
+        else:
+            return Response({"message": "No credit card details found"}, status=status.HTTP_400_BAD_REQUEST)
+        
+# end point for updating credit card details for a specific user using his userid
+@api_view(['PUT'])
+def update_credit_card(request):
+    if request.method == 'PUT':
+        # get the user id from the request
+        user_id = request.data.get("userid")
+        # get the credit card number from the request
+        credit_card_number = request.data.get("credit_card_number")
+        # get the credit card expiry date from the request
+        credit_card_expiry_date = request.data.get("credit_card_expiry_date")
+        # get the credit card cvv from the request
+        credit_card_cvv = request.data.get("credit_card_cvv")
+        # if user id, credit card number, credit card expiry date, credit card cvv is not empty then update credit card details
+        if user_id and credit_card_number and credit_card_expiry_date and credit_card_cvv:
+            # get user from User model
+            user = User.objects.get(id=user_id)
+            # get credit card details using CreditCard model
+            credit_card = CreditCard.objects.get(user=user)
+            # update credit card details
+            credit_card.credit_card_number = credit_card_number
+            credit_card.credit_card_expiry_date = credit_card_expiry_date
+            credit_card.credit_card_cvv = credit_card_cvv
+            # save credit card details
+            credit_card.save()
+            # return response as credit card details updated successfully
+            return Response({"message": "Credit card details updated successfully"}, status=status.HTTP_200_OK)
+        # else return response as no credit card details found
+        else:
+            return Response({"message": "No credit card details found"}, status=status.HTTP_400_BAD_REQUEST)
