@@ -333,6 +333,7 @@ def voicemail_history(request):
             return Response({"message": "No voicemail history found"}, status=status.HTTP_400_BAD_REQUEST)
 
 # end point for saving credit card details
+# first check whether credit card details already exists or not if exists then update else create
 @api_view(['POST'])
 def credit_card(request):
     if request.method == 'POST':
@@ -351,20 +352,31 @@ def credit_card(request):
             # getting the profile
             profile = Profile.objects.get(user=user)
             # setting the is_credit_card_active to True
-            
-            # create credit card using CreditCard model
-            CreditCard.objects.create(user=user, card_number=credit_card_number, expiration_date=credit_card_expiry_date, cvv=credit_card_cvv)
-            # setting the is_credit_card_active to True
             profile.is_credit_card_active = True
             # save profile
             profile.save()
-            # save credit card
-#            credit_card.save()
-            # return response as credit card details saved successfully
-            return Response({"message": "Credit card details saved successfully"}, status=status.HTTP_201_CREATED)
-        # else return response as credit card details not saved
+            # if credit card details already exists then update credit card details
+            if CreditCard.objects.filter(user=user).exists():
+                # get credit card details using CreditCard model
+                credit_card = CreditCard.objects.get(user=user)
+                # update credit card details
+                credit_card.credit_card_number = credit_card_number
+                credit_card.expiry_date = credit_card_expiry_date
+                credit_card.card_cvv = credit_card_cvv
+                # save credit card details
+                credit_card.save()
+                # return response as credit card details updated successfully
+                return Response({"message": "Credit card details updated successfully"}, status=status.HTTP_200_OK)
+            # else create credit card details
+            else:
+                # create credit card using CreditCard model
+                CreditCard.objects.create(user=user, credit_card_number=credit_card_number, expiry_date=credit_card_expiry_date, card_cvv=credit_card_cvv)
+                # return response as credit card details saved successfully 
+                return Response({"message": "Credit card details saved successfully"}, status=status.HTTP_201_CREATED)
+        # else return response as no credit card details found
         else:
-            return Response({"message": "Credit card details not saved"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"message": "No credit card details found"}, status=status.HTTP_400_BAD_REQUEST)
+        
         
 # creating end point for updating credit card details
 @api_view(['PUT'])
@@ -450,6 +462,10 @@ def delete_credit_card(request):
             credit_card = CreditCard.objects.get(user=user)
             # delete credit card details
             credit_card.delete()
+            # automatically set is_credit_card_active to False
+            profile = Profile.objects.get(user=user)
+            profile.is_credit_card_active = False
+            profile.save()
             # return response as credit card details deleted successfully
             return Response({"message": "Credit card details deleted successfully"}, status=status.HTTP_200_OK)
         # else return response as no credit card details found
