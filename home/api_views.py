@@ -198,6 +198,7 @@ def delete_account(request):
     
     
 
+
 class MyTokenObtainPair(TokenObtainPairSerializer):
     def validate(self, attrs):
         data = super().validate(attrs)
@@ -352,7 +353,7 @@ def credit_card(request):
             # setting the is_credit_card_active to True
             
             # create credit card using CreditCard model
-            CreditCard.objects.create(user=user, credit_card_number=credit_card_number, expiry_date=credit_card_expiry_date, card_cvv=credit_card_cvv)
+            CreditCard.objects.create(user=user, card_number=credit_card_number, expiration_date=credit_card_expiry_date, cvv=credit_card_cvv)
             # setting the is_credit_card_active to True
             profile.is_credit_card_active = True
             # save profile
@@ -365,7 +366,33 @@ def credit_card(request):
         else:
             return Response({"message": "Credit card details not saved"}, status=status.HTTP_400_BAD_REQUEST)
         
-
+# creating end point for updating credit card details
+@api_view(['PUT'])
+def update_credit_card(request):
+    if request.method == 'PUT':
+        # get the user id from the request
+        user_id = request.data.get("userid")
+        # get the credit card number from the request
+        credit_card_number = request.data.get("credit_card_number")
+        # get the credit card expiry date from the request
+        credit_card_expiry_date = request.data.get("credit_card_expiry_date")
+        # get the credit card cvv from the request
+        credit_card_cvv = request.data.get("credit_card_cvv")
+        # if user id, credit card number, credit card expiry date, credit card cvv is not empty then update credit card details
+        if user_id and credit_card_number and credit_card_expiry_date and credit_card_cvv:
+            # get user from User model
+            user = User.objects.get(id=user_id)
+            # getting the profile
+            profile = Profile.objects.get(user=user)
+            # setting the is_credit_card_active to True
+            
+            # create credit card using CreditCard model
+            CreditCard.objects.create(user=user, credit_card_number=credit_card_number, expiry_date=credit_card_expiry_date, card_cvv=credit_card_cvv)
+            # setting the is_credit_card_active to True
+            profile.is_credit_card_active = True
+            # save profile
+            profile.save()
+            # save credit card
 @api_view(["POST"])
 def send_voice_mail(request):
     userid = request.data.get("userid")
@@ -386,3 +413,5 @@ def get_user(request):
     profile = Profile.objects.get(user=user)
     data= {"username": user.username, "email": user.email, "company_name": profile.company_name, "is_credit_card_active": profile.is_credit_card_active}
     return Response(data, status=status.HTTP_200_OK)
+
+
