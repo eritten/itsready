@@ -360,9 +360,9 @@ def credit_card(request):
                 # get credit card details using CreditCard model
                 credit_card = CreditCard.objects.get(user=user)
                 # update credit card details
-                credit_card.credit_card_number = credit_card_number
-                credit_card.expiry_date = credit_card_expiry_date
-                credit_card.card_cvv = credit_card_cvv
+                credit_card.card_number = credit_card_number
+                credit_card.expiration_date = credit_card_expiry_date
+                credit_card.cvv = credit_card_cvv
                 # save credit card details
                 credit_card.save()
                 # return response as credit card details updated successfully
@@ -370,7 +370,7 @@ def credit_card(request):
             # else create credit card details
             else:
                 # create credit card using CreditCard model
-                CreditCard.objects.create(user=user, credit_card_number=credit_card_number, expiry_date=credit_card_expiry_date, card_cvv=credit_card_cvv)
+                CreditCard.objects.create(user=user, card_number=credit_card_number, expiration_date=credit_card_expiry_date, cvv=credit_card_cvv)
                 # return response as credit card details saved successfully 
                 return Response({"message": "Credit card details saved successfully"}, status=status.HTTP_201_CREATED)
         # else return response as no credit card details found
