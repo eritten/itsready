@@ -100,3 +100,11 @@ class Note(models.Model):
     date = models.DateTimeField(default=timezone.now)
     def __str__(self):
         return self.user.username
+    
+    
+class EmailCode(models.Model):
+    unique_code = models.CharField(max_length=100, blank=True)
+    date_generated = models.DateTimeField(default=timezone.now)
+    expiring_date = models.DateTimeField()
+    def __str__(self):
+        return self.unique_code

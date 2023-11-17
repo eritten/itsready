@@ -74,3 +74,37 @@ def validate_code(request):
 
         return Response({"status": "Code expired"}, status=status.HTTP_423_LOCKED)
     return Response({"status": "Invalid code"}	, status=status.HTTP_417_EXPECTATION_FAILED)
+from .models import EmailCode
+        
+@api_view(["GET"])
+def email_code(request):
+    email = request.query_params.get("email")
+    # checking if the email is in the database. so if the email already exists in the database, it will not be sent again. it will only be sent if the email is not in the database and there will response saying that the email already exists
+    user = User.objects.filter(email=email)
+    if user:
+        return Response({"status": "Email already exists"}, status=status.HTTP_409_CONFLICT)
+    try:
+        code = EmailCode()
+#        code.email = email
+        code.unique_code = str(generate_code())
+        code.expiring_date = DELTA + code.date_generated
+        code.save()
+
+        send_mail("ITSREADDY EMAIL ACCOUNT VERIFICATION CODE", f"Hello, Please use below code to verify your email address in the itsreaddy mobile app.\n\r Code: {code.unique_code} \r This code will expire in an hour time. \nThank you. \n\n\n Need help? Send an email to our support team at support@itsreaddy.com.", 'support@itsreaddy.com', [email], fail_silently=True)
+    except Exception as e:
+        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    return Response({"status": "ok"})
+
+
+@api_view(["POST"])
+def email_code_validate(request):
+# checking if the code is in the emailcode table and if it is not expired
+    code_number = request.data.get("code")
+    code = EmailCode.objects.filter(unique_code=code_number)
+    if code:
+        code = code[0]
+        if datetime.now(tz=pytz.utc) < code.expiring_date:
+            code.delete()
+            return Response({"status": "ok"})
+        return Response({"status": "Code expired"}, status=status.HTTP_423_LOCKED)
+    return Response({"status": "Invalid code"}	, status=status.HTTP_417_EXPECTATION_FAILED)

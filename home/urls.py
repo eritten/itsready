@@ -2,7 +2,7 @@ from .api_views import get_user, get_contacts, add_contact, search_contact, dele
 from django.urls import path
 # importing format suffix patterns
 from rest_framework.urlpatterns import format_suffix_patterns
-from .validate import generate, reset, validate_code
+from .validate import generate, reset, validate_code, email_code, email_code_validate
 
 urlpatterns = [
     path('get_contacts/', get_contacts, name='get_contacts'),
@@ -34,7 +34,8 @@ urlpatterns = [
     path('delete_credit_card/', delete_credit_card, name='delete_credit_card'),
     path('update_credit_card/', update_credit_card, name='update_credit_card'),
     path('get_credit_card/', get_credit_card, name='get_credit_card'),
-    
+    path('email_code/', email_code, name='email_code'),
+    path('email_code_validate/', email_code_validate, name='email_code_validate'),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
