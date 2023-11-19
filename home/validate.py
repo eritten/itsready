@@ -76,9 +76,9 @@ def validate_code(request):
     return Response({"status": "Invalid code"}	, status=status.HTTP_417_EXPECTATION_FAILED)
 from .models import EmailCode
         
-@api_view(["GET"])
+@api_view(["POST"])
 def email_code(request):
-    email = request.query_params.get("email")
+    email = request.data.get("email")
     # checking if the email is in the database. so if the email already exists in the database, it will not be sent again. it will only be sent if the email is not in the database and there will response saying that the email already exists
     user = User.objects.filter(email=email)
     if user:
