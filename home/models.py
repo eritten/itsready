@@ -54,8 +54,8 @@ class Contact(models.Model):
    
 # this is a sms and voiceMail sending platform. a class for storing sms information.
 class Sms(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    sms_text = models.TextField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sms_user', blank=True, null=True)
+    sms_text = models.TextField(blank=True, null=True)
     sms_date = models.DateTimeField(default=timezone.now)
     sms_status = models.BooleanField(default=False)
     contact = models.ManyToManyField(Contact)

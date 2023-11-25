@@ -406,17 +406,26 @@ def update_credit_card(request):
             profile.save()
             # save credit card
 @api_view(["POST"])
-def send_voice_mail(request):
-    userid = request.data.get("userid")
-    contacts = request.data.get("contacts")
-    return Response({"message": "voice mail sent successfully"}, status=status.HTTP_200_OK)
-
-@api_view(["POST"])
 def send_sms(request):
     userid = request.data.get("userid")
-    contacts = request.data.get("contacts")
+    sms_text = request.data.get("sms_text")
+    if userid:
+        sms = Sms.objects.create(user=user, sms_text=sms_text)
+        return Response({"message": "sms sent successfully"}, status=status.HTTP_200_OK)
+    else:
+        return Response({"message": "sms not sent"}, status=status.HTTP_400_BAD_REQUEST)
 
-    return Response({"message": "sms sent successfully"})
+
+@api_view(["POST"])
+def send_voice_mail(request):
+    userid = request.data.get("userid")
+    voice_mail_text = request.data.get("voice_mail_text")
+    if userid:
+        voice_mail = VoiceMail.objects.create(user=user, voice_mail_text=voice_mail_text)
+        return Response({"message": "voice mail sent successfully"}, status=status.HTTP_200_OK)
+    else:
+        return Response({"message": "voice mail not sent"}, status=status.HTTP_400_BAD_REQUEST)
+    
 @api_view(["GET"])
 def get_user(request):
     userid = request.query_params.get("userid")
