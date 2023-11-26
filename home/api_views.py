@@ -408,7 +408,7 @@ def update_credit_card(request):
 @api_view(["POST"])
 def send_sms(request):
     userid = request.data.get("userid")
-    sms_text = request.data.get("sms_text")
+    sms_text = request.data.get("sms")
     if userid:
         sms = Sms.objects.create(user=user, sms_text=sms_text)
         return Response({"message": "sms sent successfully"}, status=status.HTTP_200_OK)
@@ -419,7 +419,7 @@ def send_sms(request):
 @api_view(["POST"])
 def send_voice_mail(request):
     userid = request.data.get("userid")
-    voice_mail_text = request.data.get("voice_mail_text")
+    voice_mail_text = request.data.get("sms")
     if userid:
         voice_mail = VoiceMail.objects.create(user=user, voice_mail_text=voice_mail_text)
         return Response({"message": "voice mail sent successfully"}, status=status.HTTP_200_OK)
